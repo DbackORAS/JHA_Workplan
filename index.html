@@ -160,6 +160,7 @@ body{font-family:'Outfit',sans-serif;background:var(--d50);color:var(--d800);lin
   .pt .btns{width:100%;justify-content:center}
 }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 <div class="app-hdr">
@@ -1523,46 +1524,83 @@ function submitJHA() {
   const report = buildReport();
   const fn = getFN();
 
-  // POST to Power Automate webhook
-  const payload = {
-    filename: fn,
-    reportHTML: reportHTML,
-    submittedAt: new Date().toISOString(),
-    project: getFieldVal('project'),
-    date: document.getElementById('jhaDate').value,
-    site: document.getElementById('site').value,
-    preparedBy: document.getElementById('team_0_name').value
-  };
+  // Generate PDF from report HTML, then send to Power Automate
+  toast('Generating PDF...');
+  const container = document.createElement('div');
+  container.innerHTML = reportHTML;
+  container.style.cssText = 'position:absolute;left:-9999px;top:0;width:8.5in;background:#fff';
+  document.body.appendChild(container);
 
-  fetch(WEBHOOK_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    mode: 'no-cors',
-    body: JSON.stringify(payload)
-  }).then(() => {
-    console.log('JHA submitted to Power Automate');
+  html2pdf().set({
+    margin: [0.4, 0.4, 0.4, 0.4],
+    filename: fn + '.pdf',
+    image: { type: 'jpeg', quality: 0.92 },
+    html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+  }).from(container).outputPdf('datauristring').then(pdfDataUri => {
+    document.body.removeChild(container);
+
+    // Extract base64 from data URI
+    const pdfBase64 = pdfDataUri.split(',')[1];
+
+    const payload = {
+      filename: fn + '.pdf',
+      pdfBase64: pdfBase64,
+      submittedAt: new Date().toISOString(),
+      project: getFieldVal('project'),
+      date: document.getElementById('jhaDate').value,
+      site: document.getElementById('site').value,
+      preparedBy: document.getElementById('team_0_name').value
+    };
+
+    // Send PDF to Power Automate
+    fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(resp => {
+      if (resp.ok) { console.log('JHA PDF submitted to Power Automate'); toast('JHA sent to SharePoint'); }
+      else {
+        console.warn('Webhook responded:', resp.status);
+        // Fallback: retry with no-cors (PA may still process even without CORS headers)
+        fetch(WEBHOOK_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) }).catch(() => {});
+        toast('JHA saved locally (syncing...)', false);
+      }
+    }).catch(err => {
+      console.warn('Webhook error:', err);
+      fetch(WEBHOOK_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) }).catch(() => {});
+      toast('JHA saved locally (syncing...)', false);
+    });
+
+    // Also open report for local PDF save
+    const w = window.open('', '_blank');
+    if (w) {
+      w.document.write(reportHTML);
+      w.document.close();
+      w.onload = function() { w.print(); };
+    } else {
+      document.getElementById('pb').innerHTML = reportHTML;
+      document.getElementById('po').classList.add('on');
+      document.body.style.overflow = 'hidden';
+      window.print();
+    }
+
+    // Show post-submit panel
+    setTimeout(() => {
+      const ps = document.getElementById('postSubmit');
+      if (ps) ps.style.display = 'flex';
+    }, 500);
+
   }).catch(err => {
-    console.warn('Webhook error (report still saved locally):', err);
+    console.error('PDF generation error:', err);
+    document.body.removeChild(container);
+    toast('PDF generation failed - saving locally', true);
+    // Fallback: open print dialog
+    const w = window.open('', '_blank');
+    if (w) { w.document.write(reportHTML); w.document.close(); w.onload = function() { w.print(); }; }
+    setTimeout(() => { const ps = document.getElementById('postSubmit'); if (ps) ps.style.display = 'flex'; }, 500);
   });
-
-  // Open report in new window for PDF save
-  const w = window.open('', '_blank');
-  if (w) {
-    w.document.write(reportHTML);
-    w.document.close();
-    w.onload = function() { w.print(); };
-  } else {
-    document.getElementById('pb').innerHTML = reportHTML;
-    document.getElementById('po').classList.add('on');
-    document.body.style.overflow = 'hidden';
-    window.print();
-  }
-
-  // Show post-submit panel after brief delay
-  setTimeout(() => {
-    const ps = document.getElementById('postSubmit');
-    if (ps) ps.style.display = 'flex';
-  }, 500);
 }
 
 function sendJHAEmail() {
