@@ -1545,6 +1545,7 @@ function submitJHA() {
     const pdfBase64 = pdfDataUri.split(',')[1];
 
     const payload = {
+      formType: 'JHA',
       filename: fn + '.pdf',
       pdfBase64: pdfBase64,
       submittedAt: new Date().toISOString(),
