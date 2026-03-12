@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#2d5a14">
+<title>Optimum — JHA & Work Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--g900:#1a3a0a;--g800:#2d5a14;--g700:#3d6b1a;--g600:#4a7a20;--g500:#5b8c2a;--g400:#7db043;--g300:#a3cc6e;--g200:#d4e8b8;--g100:#eaf4dc;--g50:#f5faf0;--r600:#c0392b;--r100:#fde8e5;--y600:#e67e22;--y100:#fef5e7;--d900:#111;--d800:#1e1e1e;--d700:#2a2a2a;--d600:#444;--d500:#666;--d400:#888;--d300:#aaa;--d200:#ccc;--d100:#e8e8e8;--d50:#f4f4f4;--w:#fff;--sh-s:0 1px 3px rgba(0,0,0,.06);--sh-m:0 4px 16px rgba(0,0,0,.08);--sh-l:0 8px 30px rgba(0,0,0,.12);--r:10px;--rl:14px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Outfit',sans-serif;background:var(--d50);color:var(--d800);line-height:1.5;-webkit-font-smoothing:antialiased}
+
+.app-hdr{background:linear-gradient(135deg,var(--g800),var(--g600));color:var(--w);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:var(--sh-m)}
+.logo-area{display:flex;align-items:center;gap:12px}
+.logo-text h1{font-size:17px;font-weight:700;letter-spacing:-.3px;line-height:1.2}
+.logo-text .sub{font-size:11px;font-weight:400;opacity:.75;letter-spacing:.5px;text-transform:uppercase}
+.hdr-btns{display:flex;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 16px;border:none;border-radius:var(--r);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s}
+.btn-w{background:var(--w);color:var(--g700)}.btn-w:hover{background:var(--g50);transform:translateY(-1px)}
+.btn-g{background:rgba(255,255,255,.12);color:var(--w);border:1px solid rgba(255,255,255,.25)}.btn-g:hover{background:rgba(255,255,255,.22)}
+.btn-green{background:var(--g600);color:var(--w)}.btn-green:hover{background:var(--g500)}
+
+
+.ctn{max-width:860px;margin:0 auto;padding:20px 14px 90px}
+.doc-ref{text-align:right;font-size:10px;color:var(--d400);font-family:'JetBrains Mono',monospace;margin-bottom:10px}
+
+.sec{background:var(--w);border-radius:var(--rl);box-shadow:var(--sh-s);margin-bottom:16px;overflow:hidden;border:1px solid var(--d100)}
+.sec-h{background:var(--g700);color:var(--w);padding:13px 18px;font-size:14px;font-weight:700;letter-spacing:.3px;display:flex;align-items:center;gap:9px}
+.sec-h .ic{font-size:17px}
+.sec-h.red{background:var(--r600)}
+.sec-h.amber{background:var(--y600)}
+.sec-b{padding:18px}
+.req::after{content:" *";color:var(--r600);font-weight:700}
+.dt{width:30px;height:28px;border:1px solid transparent;border-radius:5px;background:none;cursor:pointer;font-size:15px;color:var(--d600);display:flex;align-items:center;justify-content:center;padding:0;transition:all .15s}
+.dt:hover{background:var(--d100);color:var(--d800)}
+.dt.active{background:var(--g500);color:#fff;border-color:var(--g600)}
+
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fg.c3{grid-template-columns:1fr 1fr 1fr}
+.fg .full{grid-column:1/-1}
+.fi{display:flex;flex-direction:column;gap:4px}
+.fi label{font-size:11px;font-weight:600;color:var(--d500);text-transform:uppercase;letter-spacing:.6px}
+.fi input,.fi select,.fi textarea{font-family:inherit;font-size:14px;padding:10px 12px;border:1.5px solid var(--d200);border-radius:8px;background:var(--w);color:var(--d800);transition:border .15s,box-shadow .15s}
+.fi input:focus,.fi select:focus,.fi textarea:focus{outline:none;border-color:var(--g400);box-shadow:0 0 0 3px rgba(91,140,42,.1)}
+.fi textarea{resize:vertical;min-height:70px}
+
+.dd-wrap{position:relative}
+.dd-wrap select,.dd-wrap input.oth-in{width:100%}
+.oth-tog{display:flex;align-items:center;gap:5px;margin-top:4px;cursor:pointer;user-select:none}
+.oth-tog input[type=checkbox]{accent-color:var(--g500);width:15px;height:15px;cursor:pointer}
+.oth-tog span{font-size:11px;color:var(--d400);font-weight:500}
+.oth-in{display:none}
+.dd-wrap.oth-on select{display:none}
+.dd-wrap.oth-on .oth-in{display:block}
+
+/* Team sign-in table */
+.team-tbl{width:100%;border-collapse:collapse;font-size:13px}
+.team-tbl th{background:var(--g100);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--g700);padding:8px 10px;text-align:left;border-bottom:2px solid var(--g200)}
+.team-tbl td{padding:6px 8px;border-bottom:1px solid var(--d100);vertical-align:middle}
+.team-tbl input[type=text]{width:100%;font-family:inherit;font-size:13px;padding:7px 9px;border:1.5px solid var(--d200);border-radius:6px}
+.team-tbl input:focus{outline:none;border-color:var(--g400);box-shadow:0 0 0 3px rgba(91,140,42,.08)}
+.team-tbl .role{font-size:11px;font-weight:600;color:var(--d500);white-space:nowrap}
+.team-note{font-size:10px;color:var(--d400);font-style:italic;text-align:right;margin-top:6px}
+
+/* Signature canvas */
+.sig-canvas-wrap{position:relative;width:100%;height:60px;border:1.5px solid var(--d200);border-radius:6px;background:var(--d50);cursor:crosshair}
+.sig-canvas-wrap canvas{width:100%;height:100%;border-radius:5px;touch-action:none}
+.sig-clear{position:absolute;top:3px;right:5px;font-size:9px;color:var(--r600);cursor:pointer;font-weight:700;background:var(--w);border:1px solid var(--d200);border-radius:4px;padding:1px 5px}
+
+/* Yes/No toggle */
+.yn-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--d100)}
+.yn-row:last-child{border-bottom:none}
+.yn-label{flex:1;font-size:13px;color:var(--d700)}
+.yn-btns{display:flex;gap:4px}
+.yn-btns button{padding:6px 14px;border:1.5px solid var(--d200);border-radius:6px;background:var(--w);font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;color:var(--d500);transition:all .15s}
+.yn-btns button.sel-y{background:var(--g100);border-color:var(--g400);color:var(--g700)}
+.yn-btns button.sel-n{background:var(--r100);border-color:var(--r600);color:var(--r600)}
+
+/* Hazard conditions */
+.haz-item{border:1.5px solid var(--d200);border-radius:var(--r);margin-bottom:8px;overflow:hidden;transition:border-color .15s}
+.haz-item.checked{border-color:var(--y600)}
+.haz-head{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;user-select:none;transition:background .15s}
+.haz-head:hover{background:var(--d50)}
+.haz-item.checked .haz-head{background:var(--y100)}
+.haz-head input[type=checkbox]{width:18px;height:18px;accent-color:var(--y600);cursor:pointer;flex-shrink:0}
+.haz-head .haz-name{font-size:14px;font-weight:600;color:var(--d800)}
+.haz-body{display:none;padding:14px;border-top:1px solid var(--d200);background:var(--d50)}
+.haz-item.checked .haz-body{display:block}
+.haz-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.haz-col h4{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--r600);margin-bottom:6px}
+.haz-col h4.ctrl{color:var(--g700)}
+.haz-col ul{list-style:none;padding:0}
+.haz-col li{font-size:12px;color:var(--d600);padding:3px 0;padding-left:14px;position:relative}
+.haz-col li::before{content:'•';position:absolute;left:0;color:var(--d300)}
+.ctrl-list{display:flex;flex-direction:column;gap:4px}
+.ctrl-cb{display:flex;align-items:flex-start;gap:7px;font-size:12px;color:var(--d600);padding:4px 0;cursor:pointer}
+.ctrl-cb input[type=checkbox]{width:15px;height:15px;accent-color:var(--g500);cursor:pointer;flex-shrink:0;margin-top:1px}
+
+/* Equipment checkboxes */
+.equip-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.equip-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1.5px solid var(--d200);border-radius:8px;transition:all .15s}
+.equip-item.checked{border-color:var(--g400);background:var(--g50)}
+.equip-item input[type=checkbox]{width:16px;height:16px;accent-color:var(--g500);cursor:pointer}
+.equip-item label{font-size:13px;color:var(--d700);cursor:pointer;flex:1}
+.equip-item input[type=text],.equip-item input[type=number]{width:80px;font-family:inherit;font-size:12px;padding:5px 8px;border:1px solid var(--d200);border-radius:5px}
+.equip-item input[type=text]:focus,.equip-item input[type=number]:focus{outline:none;border-color:var(--g400)}
+
+/* Rescue table */
+.rescue-row{display:grid;grid-template-columns:1fr 2fr 1fr;gap:10px;padding:10px 0;border-bottom:1px solid var(--d100)}
+.rescue-row:last-child{border-bottom:none}
+.rescue-row.hdr{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--d400);padding-bottom:6px;border-bottom:2px solid var(--d200)}
+.rescue-row input,.rescue-row textarea{font-family:inherit;font-size:13px;padding:8px 10px;border:1.5px solid var(--d200);border-radius:6px;width:100%}
+.rescue-row textarea{min-height:60px;resize:vertical}
+.rescue-row input:focus,.rescue-row textarea:focus{outline:none;border-color:var(--g400);box-shadow:0 0 0 3px rgba(91,140,42,.08)}
+
+/* Daily sign-in */
+.signin-row{display:grid;grid-template-columns:2fr 1fr repeat(4,1fr);gap:6px;padding:8px 0;border-bottom:1px solid var(--d100);align-items:center}
+.signin-row:last-child{border-bottom:none}
+.signin-row.hdr{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--d400);padding-bottom:4px;border-bottom:2px solid var(--d200)}
+.signin-row input{font-family:inherit;font-size:12px;padding:6px 8px;border:1.5px solid var(--d200);border-radius:5px;width:100%}
+.signin-row input:focus{outline:none;border-color:var(--g400)}
+
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--g700);color:var(--w);padding:14px 24px;border-radius:var(--r);font-size:14px;font-weight:600;box-shadow:var(--sh-l);z-index:2000;transition:transform .3s ease;display:flex;align-items:center;gap:8px}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast.error{background:var(--r600)}
+
+#po{display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.55);overflow-y:auto}
+#po.on{display:block}
+#pc{max-width:820px;margin:24px auto;background:var(--w);border-radius:var(--rl);box-shadow:var(--sh-l);overflow:hidden}
+.pt{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:var(--d50);border-bottom:1px solid var(--d200)}
+.pt h3{font-size:15px;color:var(--d800)}
+.pt .btns{display:flex;gap:8px;flex-wrap:wrap}
+
+.add-row-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border:1.5px dashed var(--g400);border-radius:8px;background:var(--g50);color:var(--g700);font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;margin-top:8px;transition:all .15s}
+.add-row-btn:hover{background:var(--g100);border-style:solid}
+
+.email-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+
+@media print{
+  body{background:#fff !important;margin:0 !important;padding:0 !important}
+  .app-hdr,.ctn,.toast,#po .pt{display:none!important}
+  #po{position:static;background:none;display:block!important;overflow:visible!important}
+  #pc{margin:0;box-shadow:none;border-radius:0;max-width:100%;overflow:visible!important}
+  #pb{overflow:visible!important;max-height:none!important}
+  #pb *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+}
+@media(max-width:680px){
+  .fg,.fg.c3{grid-template-columns:1fr}
+  .equip-grid{grid-template-columns:1fr}
+  .haz-cols{grid-template-columns:1fr}
+  .rescue-row{grid-template-columns:1fr}
+  .signin-row{grid-template-columns:1fr 1fr}
+  .email-row{grid-template-columns:1fr}
+  .app-hdr{flex-direction:column;gap:10px;text-align:center}
+  .hdr-btns{width:100%;justify-content:center}
+  .pt{flex-direction:column;gap:8px}
+  .pt .btns{width:100%;justify-content:center}
+}
+</style>
+</head>
+<body>
+<div class="app-hdr">
+  <div class="logo-area">
+    <img src="data:image/webp;base64,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" alt="Optimum" style="height:40px;width:auto">
+    <div class="logo-text">
+      <h1>Optimum Rope Access</h1>
+      <div class="sub">JHA &amp; Work Plan</div>
+    </div>
+  </div>
+  <div class="hdr-btns">
+    <button class="btn btn-g" onclick="clearForm()">↻ Clear</button>
+    <button class="btn btn-w" onclick="submitJHA()">📤 Submit JHA</button>
+  </div>
+</div>
+
+<div class="ctn">
+<div class="doc-ref">OMS_0010_JHA&amp;WorkPlan &bull; Rev 6 &bull; Approved: TB</div>
+
+<!-- ═══════════ PAGE 1: PROJECT & TEAM ═══════════ -->
+<div class="sec">
+  <div style="display:flex;align-items:center;gap:6px;padding:8px 14px;margin-bottom:12px;background:var(--r50,#fef2f2);border:1px solid var(--r200,#fecaca);border-radius:8px;font-size:11px;color:var(--r700,#b91c1c)">
+    <span style="font-weight:700;font-size:14px">*</span>
+    <span>Fields marked with a red asterisk are <strong>required for submission</strong>. The form will not submit until all required fields are completed.</span>
+  </div>
+
+  <div class="sec-h"><span class="ic">📋</span> Project Information</div>
+  <div class="sec-b">
+    <div class="fg">
+      <div class="fi"><label class="req">Project Name</label>
+        <div class="dd-wrap" id="wrap_project">
+          <select id="sel_project"><option value="">— Select Project —</option></select>
+          <input type="text" class="oth-in" id="oth_project" placeholder="Type project name...">
+          <label class="oth-tog"><input type="checkbox" onchange="toggleOther('project',this.checked)"><span>Other</span></label>
+        </div>
+      </div>
+      <div class="fi"><label class="req">Date</label><input type="date" id="jhaDate"></div>
+      <div class="fi"><label class="req">Site</label><input type="text" id="site" placeholder="e.g. Wind Farm Name"></div>
+      <div class="fi"><label class="req">Time</label><input type="time" id="jhaTime"></div>
+      <div class="fi"><label class="req">Customer</label>
+        <div class="dd-wrap" id="wrap_client">
+          <select id="sel_client"><option value="">— Select Client —</option></select>
+          <input type="text" class="oth-in" id="oth_client" placeholder="Type client name...">
+          <label class="oth-tog"><input type="checkbox" onchange="toggleOther('client',this.checked)"><span>Other</span></label>
+        </div>
+      </div>
+      <div class="fi"><label class="req">Work Location</label>
+        <div class="dd-wrap" id="wrap_location">
+          <select id="sel_location"><option value="">— Select Location —</option></select>
+          <input type="text" class="oth-in" id="oth_location" placeholder="Type location...">
+          <label class="oth-tog"><input type="checkbox" onchange="toggleOther('location',this.checked)"><span>Other</span></label>
+        </div>
+      </div>
+      <div class="fi"><label class="req">Site Contact</label><input type="text" id="siteContact" placeholder="Name"></div>
+      <div class="fi"><label class="req">Site Contact Phone #</label><input type="tel" id="sitePhone" placeholder="Phone number"></div>
+      <div class="fi"><label class="req">ORAS Project Manager</label>
+        <div class="dd-wrap" id="wrap_pm">
+          <select id="sel_pm"><option value="">— Select —</option></select>
+          <input type="text" class="oth-in" id="oth_pm" placeholder="Type name...">
+          <label class="oth-tog"><input type="checkbox" onchange="toggleOther('pm',this.checked)"><span>Other</span></label>
+        </div>
+      </div>
+      <div class="fi"><label class="req">PM Phone #</label><input type="tel" id="pmPhone" placeholder="Phone number"></div>
+    </div>
+  </div>
+</div>
+
+<!-- EMERGENCY INFO -->
+<div class="sec">
+  <div class="sec-h red"><span class="ic">🚨</span> Emergency Information</div>
+  <div class="sec-b">
+    <div class="fg">
+      <div class="fi"><label class="req">EAP Contact</label><input type="text" id="eapContact" placeholder="Emergency Action Plan contact"></div>
+      <div class="fi"><label class="req">EAP Rescue Kit Location</label><input type="text" id="eapKit" placeholder="Location of rescue kit"></div>
+      <div class="fi"><label class="req">Site Radio Channel</label><input type="text" id="siteRadio" placeholder="e.g. Ch 5"></div>
+      <div class="fi"><label class="req">Team Radio Channel</label><input type="text" id="teamRadio" placeholder="e.g. Ch 8"></div>
+      <div class="fi full"><label>Notes for Rescue and Access</label><textarea id="emsAccess" placeholder="Tower Number, Gates, Coordinates, Time Zone"></textarea></div>
+      <div class="fi full">
+        <label>Other Means of Communication</label>
+        <div class="yn-btns" style="margin-top:4px">
+          <button onclick="ynToggle(this,'otherComm','Y')" data-field="otherComm">Yes</button>
+          <button onclick="ynToggle(this,'otherComm','N')" data-field="otherComm">No</button>
+        </div>
+        <input type="hidden" id="otherComm" value="">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WIND ASSESSMENT -->
+<div class="sec">
+  <div class="sec-h"><span class="ic">💨</span> Wind Assessment</div>
+  <div class="sec-b">
+    <div style="font-size:11px;color:var(--d500);padding:8px 10px;background:var(--y100);border-radius:6px;margin-bottom:14px;border-left:3px solid var(--y600)">
+      &gt; 10 m/s (22mph) — additional controls for external work<br>
+      &lt; 15 m/s (33mph) — no restrictions internal<br>
+      &gt; 20 m/s (45mph) — climbing any structure prohibited<br>
+      ≥ 25 m/s (60mph) — turbine work not permitted
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;padding:10px 0">
+      <input type="checkbox" id="windDiscussed" style="width:18px;height:18px;accent-color:var(--g500);cursor:pointer">
+      <label for="windDiscussed" style="font-size:13px;color:var(--d700);cursor:pointer">Weather and wind speeds have been discussed for the workday</label>
+    </div>
+    <div class="fi" style="margin-top:10px"><label>Site Specific Notes</label><textarea id="windNotes" placeholder="Wind conditions, observations..."></textarea></div>
+  </div>
+</div>
+
+<!-- WORKING OVER WATER -->
+<div class="sec">
+  <div class="sec-h"><span class="ic">🌊</span> Working Over Water</div>
+  <div class="sec-b">
+    <div class="yn-row" style="border:none">
+      <span class="yn-label">Is work being performed over water?</span>
+      <div class="yn-btns"><button onclick="ynToggle(this,'wowActive','Y');document.getElementById('wowDetail').style.display=this.classList.contains('sel-y')?'block':'none'" data-field="wowActive">Yes</button><button onclick="ynToggle(this,'wowActive','N');document.getElementById('wowDetail').style.display='none'" data-field="wowActive">No</button></div>
+      <input type="hidden" id="wowActive" value="">
+    </div>
+    <div id="wowDetail" style="display:none;margin-top:10px">
+      <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 0;margin-bottom:14px;border-bottom:1px solid var(--d100)">
+        <input type="checkbox" id="wowPolicy" style="width:18px;height:18px;accent-color:var(--g500);cursor:pointer;margin-top:2px;flex-shrink:0">
+        <label for="wowPolicy" style="font-size:13px;color:var(--d700);cursor:pointer;font-weight:600">Optimum Work over Water policy has been reviewed by team members and proper control measures are in place.</label>
+      </div>
+      <div style="font-size:11px;color:var(--d500);padding:8px 10px;background:var(--y100);border-radius:6px;margin-bottom:14px;border-left:3px solid var(--y600)">
+        <strong>Above 1.5 m wave height average — Work over water is prohibited</strong>
+      </div>
+      <div class="fg">
+        <div class="fi"><label>Wave Height</label><input type="text" id="waveHeight" placeholder="e.g. 0.8m"></div>
+        <div class="fi"><label>Standby Vessel</label><input type="text" id="standbyVessel" placeholder="Vessel name/info"></div>
+        <div class="fi"><label>Water Temp</label><input type="text" id="waterTemp" placeholder="e.g. 15°C"></div>
+        <div class="fi"><label>Contact/Radio</label><input type="text" id="waterRadio" placeholder="Radio channel"></div>
+        <div class="fi full"><label>Work Limitations or Restrictions</label><textarea id="waterRestrictions" placeholder="Any water-related restrictions..."></textarea></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════ PAGE 2: WORK SCOPE ═══════════ -->
+<div class="sec">
+  <div class="sec-h"><span class="ic">🔧</span> Work Scope</div>
+  <div class="sec-b">
+    <div class="fg">
+      <div class="fi full"><label class="req">Description of Work</label><textarea id="workDesc" placeholder="e.g. Repair and Caulk outside Nacelle panel connections" style="min-height:90px"></textarea></div>
+      <div class="fi full"><label class="req">Rope-Access Methods</label><textarea id="ropeMethods" placeholder="e.g. Ascent/Descent, Re-anchor"></textarea></div>
+    </div>
+  </div>
+</div>
+
+<!-- JOB/TASK EQUIPMENT (Parker's tweaks: text input fields) -->
+<div class="sec">
+  <div class="sec-h"><span class="ic">🧰</span> Job / Task Equipment</div>
+  <div class="sec-b">
+    <div class="equip-grid">
+      <div class="equip-item" onclick="eqToggle(this)">
+        <input type="checkbox" id="eq_rope">
+        <label for="eq_rope">Rope</label>
+        <input type="text" id="eq_rope_qty" placeholder="Qty" style="width:50px">
+        <input type="text" id="eq_rope_len" placeholder="Length" style="width:60px">
+      </div>
+      <div class="equip-item" onclick="eqToggle(this)">
+        <input type="checkbox" id="eq_edge">
+        <label for="eq_edge">Edge Protection</label>
+        <input type="text" id="eq_edge_val" placeholder="Qty/Details" style="width:80px">
+      </div>
+      <div class="equip-item" onclick="eqToggle(this)">
+        <input type="checkbox" id="eq_slings">
+        <label for="eq_slings">Rigging Straps/Slings</label>
+        <input type="text" id="eq_slings_val" placeholder="Qty/Details" style="width:80px">
+      </div>
+      <div class="equip-item" onclick="eqToggle(this)">
+        <input type="checkbox" id="eq_conn">
+        <label for="eq_conn">Connectors</label>
+        <input type="text" id="eq_conn_val" placeholder="Qty/Details" style="width:80px">
+      </div>
+      <div class="equip-item" onclick="eqToggle(this)">
+        <input type="checkbox" id="eq_pulleys">
+        <label for="eq_pulleys">Pulleys</label>
+        <input type="text" id="eq_pulleys_val" placeholder="Qty/Details" style="width:80px">
+      </div>
+      <div class="equip-item" onclick="eqToggle(this)">
+        <input type="checkbox" id="eq_taglines">
+        <label for="eq_taglines">Tag/Lowering Lines</label>
+      </div>
+    </div>
+    <div class="fg" style="margin-top:14px">
+      <div class="fi full"><label>Additional Equipment</label><input type="text" id="addlEquip" placeholder="List any additional equipment..."></div>
+      <div class="fi full"><label>Additional PPE for Techs</label><input type="text" id="addlPPE" placeholder="List additional PPE required..."></div>
+    </div>
+    <!-- Rope lengths detail when qty > 1 -->
+    <div id="ropeLengths" style="display:none;margin-top:10px">
+      <label style="font-size:11px;font-weight:600;color:var(--d500);text-transform:uppercase;letter-spacing:.6px">Individual Rope Lengths</label>
+      <div class="fg c3" style="margin-top:6px" id="ropeLenFields"></div>
+    </div>
+  </div>
+</div>
+
+<!-- SDS -->
+<div class="sec">
+  <div class="sec-h amber"><span class="ic">📄</span> SDS — Safety Data Sheets</div>
+  <div class="sec-b">
+    <div class="yn-row" style="border:none">
+      <span class="yn-label">Verify all SDS are available and discussed</span>
+      <div class="yn-btns"><button onclick="ynToggle(this,'sdsVerified','Y')" data-field="sdsVerified">Yes</button><button onclick="ynToggle(this,'sdsVerified','N')" data-field="sdsVerified">No</button></div>
+      <input type="hidden" id="sdsVerified" value="">
+    </div>
+  </div>
+</div>
+
+<!-- ANCHORS -->
+<div class="sec">
+  <div class="sec-h"><span class="ic">⚓</span> Anchors</div>
+  <div class="sec-b">
+    <div class="fi"><label>Describe anchors to be used and locations</label><textarea id="anchors" placeholder="e.g. Crane beams above switch gear - entry deck" style="min-height:90px"></textarea></div>
+  </div>
+</div>
+
+<!-- LOTO (Parker's tweaks: text fields for permit # and supervisor) -->
+<div class="sec">
+  <div class="sec-h amber"><span class="ic">🔒</span> LOTO — Lock Out / Tag Out</div>
+  <div class="sec-b">
+    <div style="font-size:10px;color:var(--r600);background:var(--r50,#fef2f2);border:1px solid var(--r200,#fecaca);border-radius:6px;padding:6px 10px;margin-bottom:10px"><span style="font-weight:700">* Required for submission</span> — Yes or No must be selected.</div>
+    <div class="yn-row" style="border:none">
+      <span class="yn-label req">Do machinery, valves, or gates need to be locked out?</span>
+      <div class="yn-btns"><button onclick="ynToggle(this,'lotoNeeded','Y');document.getElementById('lotoDetail').style.display=this.classList.contains('sel-y')?'block':'none'" data-field="lotoNeeded">Yes</button><button onclick="ynToggle(this,'lotoNeeded','N');document.getElementById('lotoDetail').style.display='none'" data-field="lotoNeeded">No</button></div>
+      <input type="hidden" id="lotoNeeded" value="">
+    </div>
+    <div id="lotoDetail" style="display:none;margin-top:12px">
+      <div class="fg">
+        <div class="fi"><label>LOTO Permit #</label><input type="text" id="lotoPermit" placeholder="Enter permit number"></div>
+        <div class="fi"><label>LOTO Supervisor</label><input type="text" id="lotoSupervisor" placeholder="Supervisor name"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONFINED SPACE -->
+<div class="sec">
+  <div class="sec-h amber"><span class="ic">🚪</span> Confined Space</div>
+  <div class="sec-b">
+    <div style="font-size:10px;color:var(--r600);background:var(--r50,#fef2f2);border:1px solid var(--r200,#fecaca);border-radius:6px;padding:6px 10px;margin-bottom:10px"><span style="font-weight:700">* Required for submission</span> — Yes or No must be selected.</div>
+    <div class="yn-row">
+      <span class="yn-label req">Is a Permit Required?</span>
+      <div class="yn-btns"><button onclick="ynToggle(this,'csPermitReq','Y');document.getElementById('csPermitField').style.display='block'" data-field="csPermitReq">Yes</button><button onclick="ynToggle(this,'csPermitReq','N');document.getElementById('csPermitField').style.display='none'" data-field="csPermitReq">No</button></div>
+      <input type="hidden" id="csPermitReq" value="">
+    </div>
+    <div id="csPermitField" style="display:none;margin-top:8px">
+      <div class="fi"><label>Permit #</label><input type="text" id="csPermit" placeholder="Enter permit number"></div>
+    </div>
+  </div>
+</div>
+
+<!-- EQUIPMENT/TOOL MANAGEMENT -->
+<div class="sec">
+  <div class="sec-h"><span class="ic">🔗</span> Equipment/Tool Management</div>
+  <div class="sec-b">
+    <div class="fi"><label class="req">How will Equipment/Tools be managed at height to ensure 100% tethering/tie off?</label><textarea id="toolMgmt" placeholder="Describe tool management plan..."></textarea></div>
+  </div>
+</div>
+
+<!-- POWER ASCENDER -->
+<div class="sec">
+  <div class="sec-h"><span class="ic">⬆️</span> Power Ascender Use</div>
+  <div class="sec-b">
+    <div class="yn-row" style="border:none">
+      <span class="yn-label">Is the Team using Power Ascenders?</span>
+      <div class="yn-btns"><button onclick="ynToggle(this,'powerAsc','Y');document.getElementById('paDetail').style.display='block'" data-field="powerAsc">Yes</button><button onclick="ynToggle(this,'powerAsc','N');document.getElementById('paDetail').style.display='none'" data-field="powerAsc">No</button></div>
+      <input type="hidden" id="powerAsc" value="">
+    </div>
+    <div id="paDetail" style="display:none;margin-top:8px;padding:10px;background:var(--g50);border-radius:8px;border-left:3px solid var(--g400)">
+      <strong style="font-size:12px;color:var(--g700)">⚠️ If Yes — Verify Pre-Use Inspection has been performed.</strong>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px">
+        <label style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--d700);cursor:pointer">
+          <input type="checkbox" id="paPreUse" style="width:16px;height:16px;accent-color:var(--g500)"> Pre-Use Inspection completed
+        </label>
+        <label style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--d700);cursor:pointer">
+          <input type="checkbox" id="paCertified" style="width:16px;height:16px;accent-color:var(--g500)"> Operator certification / training verified
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ACCESS ZONE / HAZARD ZONE -->
+<div class="sec">
+  <div class="sec-h red"><span class="ic">⚠️</span> Work Zones - Rope Access</div>
+  <div class="sec-b">
+    <div class="fi" style="margin-bottom:14px">
+      <label>Access Zone <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:10px;color:var(--d400)">(SPRAT–Hazard / IRATA–Intermediate, Bottom Level)</span></label>
+      <textarea id="accessZone" placeholder="Describe hazard zone and control measures..."></textarea>
+    </div>
+    <div class="fi">
+      <label>Hazard Zone <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:10px;color:var(--d400)">(SPRAT–Fall Zone / IRATA–Working Edge / Exclusion Zone / Anchor Area)</span></label>
+      <textarea id="hazardZone" placeholder="Describe fall zone and control measures..."></textarea>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════ PAGE 3: RESCUE & RIGGING ═══════════ -->
+<div class="sec">
+  <div class="sec-h red"><span class="ic">🆘</span> Rescue Planning</div>
+  <div class="sec-b">
+    <div style="font-size:10px;color:var(--r600);background:var(--r50,#fef2f2);border:1px solid var(--r200,#fecaca);border-radius:6px;padding:6px 10px;margin-bottom:10px"><span style="font-weight:700">* Required for submission</span> — Emergency Radio Channel and at least 1 Location / Rescue Plan entry.</div>
+    <div style="font-size:11px;color:var(--d600);padding:10px;background:var(--d50);border-radius:6px;margin-bottom:14px">
+      List any location in which a technician may require an intervention or assisted rescue, the steps required to perform the rescue and the needed equipment.<br><br>
+      <strong>S.A.V.E Protocol:</strong><br>
+      <strong>S</strong>cene Assessment — Determine response level and make sure the scene is safe.<br>
+      <strong>A</strong>ctivate the Emergency Response Plan (ERP).<br>
+      <strong>V</strong>erify anchors, rescue equipment, personnel, plan, and point of safety for the casualty.<br>
+      <strong>E</strong>xecute the rescue plan based on the location as laid out below.
+    </div>
+    <div class="fg" style="margin-bottom:14px">
+      <div class="fi"><label class="req">Emergency Radio Channel</label><input type="text" id="emergRadio" placeholder="Emergency channel"></div>
+      <div class="fi"><label>Notes</label><input type="text" id="rescueNotes" placeholder="Additional rescue notes"></div>
+    </div>
+    <div class="rescue-row hdr"><div>Location</div><div>Rescue Plan</div><div>Required Rescue Gear</div></div>
+    <div id="rescueRows">
+      <div class="rescue-row"><input type="text" placeholder="e.g. Top of Nacelle"><textarea placeholder="e.g. Set up all lines as rig to lower system, move casualty..."></textarea><input type="text" placeholder="e.g. JAG Rescue Kit, FA Kit"></div>
+      <div class="rescue-row"><input type="text" placeholder="Location"><textarea placeholder="Rescue plan steps..."></textarea><input type="text" placeholder="Required gear"></div>
+      <div class="rescue-row"><input type="text" placeholder="Location"><textarea placeholder="Rescue plan steps..."></textarea><input type="text" placeholder="Required gear"></div>
+    </div>
+    <button class="add-row-btn" onclick="addRescueRow()">+ Add Location</button>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-h"><span class="ic">📐</span> Rigging Plan</div>
+  <div class="sec-b">
+    <div class="fi"><label>Describe or draw rigging for rope access systems for new team members or systems not provided in Work Instructions. Identify and assess sharp edges or other hazards along with control measures.</label><textarea id="riggingPlan" placeholder="Describe rigging plan, anchor setups, edge protections..." style="min-height:120px"></textarea></div>
+    <div style="margin-top:12px">
+      <div style="display:flex;align-items:center;gap:10px;padding:8px 0">
+        <input type="checkbox" id="riggingDrawToggle" style="width:18px;height:18px;accent-color:var(--g500);cursor:pointer" onchange="toggleDrawCanvas(this.checked)">
+        <label for="riggingDrawToggle" style="font-size:13px;color:var(--d700);cursor:pointer;font-weight:600">Draw rigging plan sketch</label>
+      </div>
+      <div id="riggingCanvasWrap" style="display:none">
+        <!-- Toolbar -->
+        <div style="display:flex;flex-wrap:wrap;gap:4px;padding:6px 0;align-items:center">
+          <div style="display:flex;gap:2px;background:var(--d50);border-radius:6px;padding:3px" id="drawTools">
+            <button type="button" class="dt active" data-tool="pen" title="Freehand">&#9998;</button>
+            <button type="button" class="dt" data-tool="line" title="Straight Line">&#9135;</button>
+            <button type="button" class="dt" data-tool="dash" title="Dashed Line">&#8230;</button>
+            <button type="button" class="dt" data-tool="arrow" title="Arrow">&#10132;</button>
+            <button type="button" class="dt" data-tool="rect" title="Rectangle">&#9633;</button>
+            <button type="button" class="dt" data-tool="circle" title="Circle">&#9675;</button>
+            <button type="button" class="dt" data-tool="text" title="Add Text">T</button>
+            <button type="button" class="dt" data-tool="eraser" title="Eraser">&#9003;</button>
+          </div>
+          <div style="display:flex;gap:4px;align-items:center;margin-left:6px">
+            <select id="drawColor" onchange="drawState.color=this.value" style="font-size:10px;padding:3px 6px;border:1px solid var(--d200);border-radius:4px">
+              <option value="#1e1e1e">Black</option><option value="#c0392b">Red</option><option value="#2d5a14">Green</option><option value="#2980b9">Blue</option><option value="#e67e22">Orange</option><option value="#8e44ad">Purple</option>
+            </select>
+            <select id="drawSize" onchange="drawState.size=parseInt(this.value)" style="font-size:10px;padding:3px 6px;border:1px solid var(--d200);border-radius:4px">
+              <option value="1">1px</option><option value="2">2px</option><option value="3" selected>3px</option><option value="5">5px</option><option value="8">8px</option>
+            </select>
+          </div>
+          <div style="display:flex;gap:3px;margin-left:auto">
+            <button type="button" onclick="drawUndo()" style="font-size:10px;color:var(--d600);cursor:pointer;background:var(--w);border:1px solid var(--d200);border-radius:4px;padding:3px 8px" title="Undo">&#8617; Undo</button>
+            <button type="button" onclick="clearDrawCanvas()" style="font-size:10px;color:var(--r600);cursor:pointer;font-weight:700;background:var(--w);border:1px solid var(--d200);border-radius:4px;padding:3px 8px">Clear</button>
+          </div>
+        </div>
+        <!-- Canvas stack -->
+        <div style="position:relative;width:100%;height:360px;border:1.5px solid var(--d200);border-radius:8px;background:var(--w);overflow:hidden" id="drawCanvasWrap">
+          <canvas id="drawCanvas" style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:7px"></canvas>
+          <canvas id="drawPreview" style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:7px;touch-action:none;cursor:crosshair"></canvas>
+        </div>
+        <div style="font-size:10px;color:var(--d400);font-style:italic;margin-top:4px">Use freehand, lines, shapes, and arrows to diagram rigging. Drawing is included in the PDF report.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════ PAGES 4-5: HAZARD CONDITIONS (CONDITIONAL) ═══════════ -->
+<div class="sec">
+  <div class="sec-h amber"><span class="ic">⚠️</span> Hazard Conditions — Check all that apply</div>
+  <div class="sec-b">
+    <div style="font-size:11px;color:var(--d500);margin-bottom:12px;font-style:italic">Check a condition to expand its hazard details and control measures. Content per OMS_0010 Rev 6 — changes require leadership approval.</div>
+    <div style="font-size:10px;color:var(--r600);background:var(--r50,#fef2f2);border:1px solid var(--r200,#fecaca);border-radius:6px;padding:6px 10px;margin-bottom:10px"><span style="font-weight:700">* Required for submission</span> — Minimum 3 hazard conditions must be checked.</div>
+    <div id="hazardList"></div>
+    <!-- Custom hazards -->
+    <div class="haz-item" id="customHaz1">
+      <div class="haz-head" onclick="this.parentElement.classList.toggle('checked')">
+        <input type="checkbox" onclick="event.stopPropagation();this.parentElement.parentElement.classList.toggle('checked',this.checked)">
+        <input type="text" placeholder="Custom hazard condition..." style="flex:1;font-family:inherit;font-size:14px;font-weight:600;padding:4px 8px;border:1px solid var(--d200);border-radius:4px" onclick="event.stopPropagation()">
+      </div>
+      <div class="haz-body">
+        <div class="haz-cols">
+          <div><h4>Description of Hazards</h4><textarea placeholder="Describe hazards..." style="width:100%;min-height:60px;font-family:inherit;font-size:12px;padding:8px;border:1px solid var(--d200);border-radius:6px"></textarea></div>
+          <div><h4 class="ctrl">Control Measures</h4><textarea placeholder="Control measures..." style="width:100%;min-height:60px;font-family:inherit;font-size:12px;padding:8px;border:1px solid var(--d200);border-radius:6px"></textarea></div>
+        </div>
+      </div>
+    </div>
+    <div class="haz-item" id="customHaz2">
+      <div class="haz-head" onclick="this.parentElement.classList.toggle('checked')">
+        <input type="checkbox" onclick="event.stopPropagation();this.parentElement.parentElement.classList.toggle('checked',this.checked)">
+        <input type="text" placeholder="Custom hazard condition..." style="flex:1;font-family:inherit;font-size:14px;font-weight:600;padding:4px 8px;border:1px solid var(--d200);border-radius:4px" onclick="event.stopPropagation()">
+      </div>
+      <div class="haz-body">
+        <div class="haz-cols">
+          <div><h4>Description of Hazards</h4><textarea placeholder="Describe hazards..." style="width:100%;min-height:60px;font-family:inherit;font-size:12px;padding:8px;border:1px solid var(--d200);border-radius:6px"></textarea></div>
+          <div><h4 class="ctrl">Control Measures</h4><textarea placeholder="Control measures..." style="width:100%;min-height:60px;font-family:inherit;font-size:12px;padding:8px;border:1px solid var(--d200);border-radius:6px"></textarea></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════ TEAM SIGN-IN (moved to end so team reads full JHA first) ═══════════ -->
+<div class="sec">
+  <div class="sec-h"><span class="ic">👥</span> Team Sign-In</div>
+  <div class="sec-b">
+    <div style="font-size:10px;color:var(--r600);background:var(--r50,#fef2f2);border:1px solid var(--r200,#fecaca);border-radius:6px;padding:6px 10px;margin-bottom:10px"><span style="font-weight:700">* Required for submission</span> — At least 1 team member name and signature required. Empty rows are OK if your crew is smaller.</div>
+    <div style="font-size:11px;color:var(--d400);font-style:italic;margin-bottom:10px;padding:8px 10px;background:var(--g50);border-radius:6px;border-left:3px solid var(--g400)">Sign only after reading the entire JHA. By signing, you acknowledge that you understand your responsibilities, have been briefed on the job's hazard controls, understand all hazards and control measures, and are competent to use the necessary tools and equipment.</div>
+    <table class="team-tbl">
+      <thead><tr><th style="width:110px">Role</th><th>Print Name</th><th>Phone #</th><th style="width:180px">Signature</th></tr></thead>
+      <tbody id="teamBody">
+        <tr><td class="role">Prepared By</td><td><input type="text" id="team_0_name"></td><td><input type="text" id="team_0_phone"></td><td><div class="sig-canvas-wrap"><canvas id="sig_0"></canvas><span class="sig-clear" onclick="clearSig(0)">✕</span></div></td></tr>
+        <tr><td class="role">RA Supervisor</td><td><input type="text" id="team_1_name"></td><td><input type="text" id="team_1_phone"></td><td><div class="sig-canvas-wrap"><canvas id="sig_1"></canvas><span class="sig-clear" onclick="clearSig(1)">✕</span></div></td></tr>
+        <tr><td class="role">Technician</td><td><input type="text" id="team_2_name"></td><td><input type="text" id="team_2_phone"></td><td><div class="sig-canvas-wrap"><canvas id="sig_2"></canvas><span class="sig-clear" onclick="clearSig(2)">✕</span></div></td></tr>
+        <tr><td class="role">Technician</td><td><input type="text" id="team_3_name"></td><td><input type="text" id="team_3_phone"></td><td><div class="sig-canvas-wrap"><canvas id="sig_3"></canvas><span class="sig-clear" onclick="clearSig(3)">✕</span></div></td></tr>
+        <tr><td class="role">Technician</td><td><input type="text" id="team_4_name"></td><td><input type="text" id="team_4_phone"></td><td><div class="sig-canvas-wrap"><canvas id="sig_4"></canvas><span class="sig-clear" onclick="clearSig(4)">✕</span></div></td></tr>
+        <tr><td class="role">Technician</td><td><input type="text" id="team_5_name"></td><td><input type="text" id="team_5_phone"></td><td><div class="sig-canvas-wrap"><canvas id="sig_5"></canvas><span class="sig-clear" onclick="clearSig(5)">✕</span></div></td></tr>
+        <tr><td class="role">Technician</td><td><input type="text" id="team_6_name"></td><td><input type="text" id="team_6_phone"></td><td><div class="sig-canvas-wrap"><canvas id="sig_6"></canvas><span class="sig-clear" onclick="clearSig(6)">✕</span></div></td></tr>
+        <tr><td class="role">Technician</td><td><input type="text" id="team_7_name"></td><td><input type="text" id="team_7_phone"></td><td><div class="sig-canvas-wrap"><canvas id="sig_7"></canvas><span class="sig-clear" onclick="clearSig(7)">✕</span></div></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- ═══════════ PAGE 6: LESSONS LEARNED & CLOSE-OUT ═══════════ -->
+<div class="sec">
+  <div class="sec-h"><span class="ic">📝</span> Lessons Learned</div>
+  <div class="sec-b">
+    <div class="fi"><label>Safety Considerations — Were adequate safety measures taken to ensure the safety of personnel and public? Note any additional safety measures taken or recommended for future tasks/specific job.</label><textarea id="lessonsLearned" placeholder="Document lessons learned, safety observations, recommendations..." style="min-height:120px"></textarea></div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="sec-h"><span class="ic">✅</span> Close-Out — Supervisor Sign-Off</div>
+  <div class="sec-b">
+    <div style="font-size:10px;color:var(--r600);background:var(--r50,#fef2f2);border:1px solid var(--r200,#fecaca);border-radius:6px;padding:6px 10px;margin-bottom:10px"><span style="font-weight:700">* Required for submission</span> — Supervisor signature is required to submit.</div>
+    <div class="fg">
+      <div class="fi">
+        <label class="req">Supervisor Signature (End of Job)</label>
+        <div class="sig-canvas-wrap" style="height:80px"><canvas id="sig_super"></canvas><span class="sig-clear" onclick="clearSigById('sig_super')">✕</span></div>
+      </div>
+      <div class="fi"><label>Date Closed</label><input type="date" id="dateClosed"></div>
+    </div>
+  </div>
+</div>
+
+<!-- EMAIL & SUBMIT -->
+<div class="sec">
+  <div class="sec-h"><span class="ic">📧</span> Email & Submit</div>
+  <div class="sec-b">
+    <div class="email-row">
+      <div class="fi"><label>Preparer's Email</label><input type="email" id="prepEmail" placeholder="Your email for report copy"></div>
+      <div class="fi"><label>CC Email</label><input type="email" id="ccEmail" placeholder="e.g. todd@optimumras.com"></div>
+    </div>
+  </div>
+</div>
+
+<div style="text-align:center;padding:18px 0">
+  <button class="btn btn-green" onclick="submitJHA()" style="font-size:15px;padding:14px 32px">📤 Submit JHA</button>
+</div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- POST-SUBMIT PANEL -->
+<div id="postSubmit" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;align-items:center;justify-content:center;padding:20px">
+  <div style="background:#fff;border-radius:14px;max-width:440px;width:100%;padding:28px;text-align:center;box-shadow:0 12px 40px rgba(0,0,0,.25)">
+    <div style="font-size:48px;margin-bottom:8px">✅</div>
+    <h2 style="font-size:20px;color:var(--g700);margin:0 0 6px">JHA Saved</h2>
+    <p style="font-size:13px;color:var(--d500);margin:0 0 20px">Your PDF has been generated. Attach it to the email below to send to the team.</p>
+    <button id="emailBtn" onclick="sendJHAEmail()" style="width:100%;padding:14px;font-size:14px;font-weight:700;color:#fff;background:var(--g600);border:none;border-radius:8px;cursor:pointer;margin-bottom:10px">📧 Send JHA via Email</button>
+    <div style="font-size:10px;color:var(--d400);margin-bottom:16px">Opens your email app with To, Subject, and body pre-filled. Attach the PDF you just saved.</div>
+    <button onclick="closePostSubmit()" style="width:100%;padding:12px;font-size:13px;font-weight:600;color:var(--d600);background:var(--d50);border:1px solid var(--d200);border-radius:8px;cursor:pointer">Done — Return to Form</button>
+  </div>
+</div>
+
+<!-- PRINT OVERLAY -->
+<div id="po">
+  <div id="pc">
+    <div class="pt">
+      <h3>JHA Preview</h3>
+      <div class="btns">
+        <button class="btn btn-green" onclick="window.print()">📄 Save as PDF</button>
+        <button class="btn btn-g" onclick="closePrint()" style="color:var(--d700);border-color:var(--d300)">✕ Close</button>
+      </div>
+    </div>
+    <div id="pb"></div>
+  </div>
+</div>
+
+
+<script>
+/*
+╔══════════════════════════════════════════════════════════════════╗
+║                                                                  ║
+║   MASTER LISTS — EDIT THESE TO UPDATE ALL DROPDOWNS              ║
+║                                                                  ║
+║   To add a new item:    Copy an existing line and change it      ║
+║   To remove an item:    Delete that line                         ║
+║   Then save this file — every tech gets the update automatically ║
+║                                                                  ║
+╚══════════════════════════════════════════════════════════════════╝
+*/
+
+const MASTER = {
+  projects: [
+    "2603_VCON_Brownsville_XTC_Onshore",
+    "2603_Sentinel_Deovalization_Onshore",
+    "2603_PatternEnergy_LostCreek_CoatingRepair_Onshore",
+    "2603_DEME_FenderDeinstallation_Providence_Offshore",
+    "2603_Blattner_SunZia_ClinesCornersNM_DeckReplacement_Onshore",
+    "GE_VW1_M&ESupervisor_Onshore",
+    "GE_VW1_Leadership Team_Onshore",
+    "2602_UpTower_BullCreek_NacelleRepair_Onshore",
+    "Blattner_SunZia_NacelleVent",
+    "Blattner_SunZia_BladeRepair",
+    "GE_Onshore_Maintenance",
+    "GE_Offshore_Inspection",
+    "Academy_Training",
+    "Internal_Operations",
+  ],
+  clients: [
+    "Blattner Energy",
+    "DEME",
+    "GE Renewables",
+    "Pattern Energy",
+    "Sentinel",
+    "Uptower",
+    "VCON",
+    "Vestas",
+    "Siemens Gamesa",
+  ],
+  locations: [
+    { name: "Brownsville, TX", lat: 25.9017, lon: -97.4975 },
+    { name: "Bull Creek, TX", lat: 32.10, lon: -100.54 },
+    { name: "Clines Corners, NM", lat: 34.9917, lon: -105.4308 },
+    { name: "Amarillo, TX", lat: 35.2220, lon: -101.8313 },
+    { name: "Lost Creek, TX", lat: 30.90, lon: -101.30 },
+    { name: "Providence, RI (Offshore)", lat: 41.8240, lon: -71.4128 },
+    { name: "Sweetwater, TX", lat: 32.4707, lon: -100.4059 },
+    { name: "Oklahoma City, OK", lat: 35.4676, lon: -97.5164 },
+  ],
+  team: [
+    { name: "Travis Staggs", email: "travis@optimumras.com", phone: "" },
+    { name: "Parker Wood", email: "parker@optimumras.com", phone: "" },
+    { name: "Beau Naulu", email: "beau@optimumras.com", phone: "" },
+    { name: "Todd Bentley", email: "todd@optimumras.com", phone: "" },
+  ],
+};
+
+const WEBHOOK_URL = "PASTE_YOUR_POWER_AUTOMATE_URL_HERE";
+
+/* ═══════════ END OF EDITABLE SECTION ═══════════ */
+
+/*
+╔══════════════════════════════════════════════════════════════════╗
+║   HAZARD CONDITIONS — OMS_0010 Rev 6                            ║
+║   DO NOT EDIT without leadership approval (TB)                  ║
+╚══════════════════════════════════════════════════════════════════╝
+*/
+const HAZARDS = [
+  { name:"Falling", hazards:["Gravity-induced injury or death"], controls:["Always use appropriate fall-protection or rope-access equipment when 6 ft from unprotected edge with a fall potential of 4 ft or more","All personnel must be properly trained"] },
+  { name:"Human Error", hazards:["Rigging Errors"], controls:["Use 2-rope system when working line is primary means of support","Use independent anchorages","Always do 4-point check: Ropes (including anchors), Hardware, Harness, Helmet"] },
+  { name:"Communication Difficulty", hazards:["Loud ambient noise (traffic, machinery, running water, wind, etc.)","Malfunctioning or dropped radios","Changing Conditions"], controls:["Agree upon and use standardized communication signals","Check communication systems","Designate alternate communication system in case conditions change or technical difficulties arise","Review hand signals (as appropriate)"] },
+  { name:"Sharp/Abrasive Surfaces", hazards:["Rope or anchor damage and/or failure","Abrasions or cuts to hands"], controls:["Use proper edge protection and padding","Use re-direct or intermediate anchors as needed","Wear gloves and proper clothing"] },
+  { name:"Electrical Lines", hazards:["Inadvertent contact with energized lines","Burns or electrocution from contact"], controls:["Contain ropes that could blow into nearby electrical lines","Understand company clearances around energized equipment","Follow lock-out/tag-out procedure"] },
+  { name:"Machinery", hazards:["Inadvertent operation of machinery","Injury sustained from machinery","Hazardous condition created (e.g. release of water)"], controls:["Get appropriate clearances","Follow lock-out/tag-out procedure","Confirm lock-out/tag-out"] },
+  { name:"Injury from Tools", hazards:["Hazards depend on tools used","Damage to rope-access or fall-protection system"], controls:["Follow all manufacturer's instructions and keep all protective guards in place","Separate suspension rope may be required for tools greater than 10 kg (22.1lbs)"] },
+  { name:"Dropped Tools or Materials", hazards:["Possible injury to personnel and public","Loss of important tools for work or egress","Damage to structures or equipment"], controls:["Clearly mark and barricade Hazard Zone","Helmets or hard hats must be worn in Hazard Zone","Keep a clean and orderly worksite","All tools and devices must be tethered or secured","Avoid working or standing below other workers"] },
+  { name:"Rock Fall or Loose Debris", hazards:["Possible injury to personnel and public","Damage to structures or equipment","Severed ropes"], controls:["Careful scaling or clearing of slope prior to work","Loose materials or rock may need to be secured (either temporarily or permanently)","Manage ropes to avoid dislodging loose materials"] },
+  { name:"Rain/Wet Conditions", hazards:["Insulating qualities of wet clothing decreases","Possible hypothermia","Wet surfaces can be slippery","Decreased friction on descent and rope-grab devices","Danger of stray current near improperly insulated or grounded equipment","Decreased visibility"], controls:["Stop work if conditions become dangerous","Wear proper footwear and clothing","Waterproof rain gear should be available","Be aware of slippery conditions","Electrical equipment must be adequately grounded and equipped with GFCI's"] },
+  { name:"Snow/Ice", hazards:["Insulating qualities of wet clothing decreases","Possible hypothermia and frostbite","Loss of dexterity in extremities","Wet and icy surfaces are slippery","Decreased friction on descent and rope-grab devices","Danger of stray current around improperly insulated and grounded electrical equipment","Decreased visibility"], controls:["Stop work if conditions become dangerous","Wear proper footwear and clothing, including gloves and hat","Waterproof rain gear should be available","Be aware of slippery conditions","Use appropriate rope access equipment for conditions","Electrical equipment must be adequately grounded and equipped with GFCI's","Hand warmers should be available in case of emergency"] },
+  { name:"Water (Working Around/Over Moving/Standing Water)", hazards:["Wet surfaces can be slippery","Potential for Drowning","Trapped in current while tied off (drowning hazard)","Working at night","Night operations over water"], controls:["Stop work if conditions become dangerous","Rescue boat shall be readily available if working directly over water, especially if descent is a viable method of egress","Fall protection or rope access equipment must not allow worker to fall into water (especially moving water)","Personal flotation devices not required if proper fall protection in place","Verify dedicated rescue vessel is assigned and proper communication is set up prior to beginning work"] },
+  { name:"Sun/Heat", hazards:["Possible dehydration, heat exhaustion or heat stroke","Burns from tools, equipment, and structural steel","Adhesives and first-aid supplies may be degraded by heat"], controls:["Stop work if conditions become dangerous","Ample water and/or electrolytes on hand for workers","Schedule proper breaks and work in morning or evening to avoid peak temperatures","Wear proper PPE to protect hands from hot surfaces","Use and frequently re-apply adequate sunscreen"] },
+  { name:"Cold/Freezing Temperatures", hazards:["Possible hypothermia, frostbite, loss of dexterity","Decreased functionality of first-aid supplies, technician equipment, frozen drinking water","Slippery surfaces"], controls:["Stop work if conditions become dangerous","Wear proper footwear and clothing, including gloves and hat","Warm liquids should be available to workers"] },
+  { name:"Wind", hazards:["Possible increased cooling or hypothermia risk, increased dehydration risk in dry humidity","Decrease in efficiency, hindrance to communications between team members","Danger of unsecured equipment or material being blown into the access zone","Difficulty communicating"], controls:["Stop work if conditions become dangerous","Wear proper footwear and clothing, including gloves and hat","Secure loose materials at work site","Stay aware of wind developing slack in ropes where they may be blown into areas making retrieval difficult"] },
+  { name:"Lightning", hazards:["Possible electrocution due to lightning strike, loss of consciousness or life","Rope-access equipment may provide a pathway for electrical strikes"], controls:["Stop work when lightning threatens","Verify site rules for lightning protocols"] },
+  { name:"Dimly Lit or Night Work", hazards:["Sharp or protruding objects (metal, nails, bolts, etc.) may not be visible to workers","Evacuation or exit routes may not be visible"], controls:["Provide adequate lighting: area lighting and/or head- and hand-lamps","Provide spare batteries, light sources, and bulbs"] },
+  { name:"Dust", hazards:["Difficulty in breathing, possible allergic reaction","Possible long-term exposure hazard"], controls:["Provide adequate engineering controls","Provide PPE where engineering controls not possible or impractical"] },
+  { name:"Chemical Exposure", hazards:["Difficulty in breathing, dizziness, unconsciousness","Chemical burns to skin, eyes, internal organs"], controls:["SDS must be available for all chemicals used during work","Proper PPE and engineering controls must be in place","Respirators must be used and correct type for work"] },
+  { name:"Confined Space Entry", hazards:["Work areas may contain toxic gases or insufficient oxygen levels for work","Space may have restricted entry/exit making access difficult"], controls:["Follow confined space procedures","Toxic rescue plan required and in force prior to entry"] },
+  { name:"High-Noise Area", hazards:["Permanent or temporary damage to hearing","Difficult Communications","High-noise levels may mask warning buzzers or other alert sounds"], controls:["Hearing protection required, in extremely loud environments (+120 dBA), multiple types of protection may be necessary","Agree on hand signals before work","Workers may be equipped with sound-isolating hearing protection for radios"] },
+  { name:"Insect or Animal Bites or Stings", hazards:["Possible injury or incapacitation of personnel depending on severity of bite or venom"], controls:["Careful access into areas where spiders, snakes, scorpions, or other creatures may reside","Use of gloves at all times, equip first aid kit with medical supplies appropriate for bites and stings"] },
+  { name:"Vehicular Traffic", hazards:["Possible impact or crushing injury"], controls:["Careful demarcation of access and hazard zones, use flags, signs, flag persons, lighting as needed","Provide high-visibility clothing for personnel"] },
+  { name:"Bird & Animal Feces", hazards:["Possible inhalation of disease carried by feces"], controls:["Workers may need to wear proper PPE or respirators"] },
+  { name:"Constricted Work Areas While in Suspension", hazards:["Bodily Injury (from rope access equipment, tools, or components)","Entanglement","Gear Damage"], controls:["Verify use of specialized equipment is used according to company policy and any site-specific training","Always use work positioners to extend power ascenders or other gear away from the body while in constricted areas (ladder wells, platform transition & hatches, etc)","Prioritize climbing vs using Power Ascender"] },
+];
+
+/* ═══════════ END OF HAZARD DATA ═══════════ */
+
+// ─── STATE ───
+let reportHTML = '';
+const sigPads = {};
+
+// ─── INIT ───
+function init() {
+  document.getElementById('jhaDate').valueAsDate = new Date();
+  const now = new Date();
+  document.getElementById('jhaTime').value = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+
+  // Populate dropdowns
+  populateSelect('sel_project', MASTER.projects);
+  populateSelect('sel_client', MASTER.clients);
+  const locNames = MASTER.locations.map(l => l.name);
+  populateSelect('sel_location', locNames);
+  const teamNames = MASTER.team.map(t => t.name);
+  populateSelect('sel_pm', teamNames);
+
+  // Render hazard conditions
+  renderHazards();
+
+  // Init signature pads
+  for (let i = 0; i < 8; i++) initSigPad('sig_' + i);
+  initSigPad('sig_super');
+
+}
+
+function populateSelect(id, items) {
+  const sel = document.getElementById(id);
+  items.forEach(item => {
+    const o = document.createElement('option');
+    o.value = item; o.textContent = item;
+    sel.appendChild(o);
+  });
+}
+
+function toggleOther(field, on) {
+  const wrap = document.getElementById('wrap_' + field);
+  if (on) wrap.classList.add('oth-on');
+  else wrap.classList.remove('oth-on');
+}
+
+function getFieldVal(field) {
+  const wrap = document.getElementById('wrap_' + field);
+  if (!wrap) return document.getElementById(field)?.value || '';
+  if (wrap.classList.contains('oth-on')) return document.getElementById('oth_' + field).value;
+  return document.getElementById('sel_' + field).value;
+}
+
+// ─── YES/NO TOGGLES ───
+function ynToggle(btn, fieldId, val) {
+  const hidden = document.getElementById(fieldId);
+  const btns = btn.parentElement.querySelectorAll('button');
+  btns.forEach(b => b.className = '');
+  if (hidden.value === val) {
+    hidden.value = '';
+  } else {
+    hidden.value = val;
+    btn.className = val === 'Y' ? 'sel-y' : 'sel-n';
+  }
+}
+
+// ─── EQUIPMENT TOGGLES ───
+function eqToggle(el) {
+  if (event.target.tagName === 'INPUT' && event.target.type !== 'checkbox') return;
+  const cb = el.querySelector('input[type=checkbox]');
+  if (event.target !== cb) cb.checked = !cb.checked;
+  el.classList.toggle('checked', cb.checked);
+}
+
+// ─── SIGNATURE PADS ───
+
+// --- DRAWING CANVAS (FULL TOOLBAR) ---
+const drawState = {
+  tool: 'pen', color: '#1e1e1e', size: 3,
+  drawing: false, startX: 0, startY: 0,
+  history: [], historyIdx: -1
+};
+let mainCtx = null, prevCtx = null, mainCv = null, prevCv = null;
+
+function toggleDrawCanvas(on) {
+  const w = document.getElementById('riggingCanvasWrap');
+  if (w) w.style.display = on ? 'block' : 'none';
+  if (on) initDrawCanvas();
+}
+
+function initDrawCanvas() {
+  mainCv = document.getElementById('drawCanvas');
+  prevCv = document.getElementById('drawPreview');
+  if (!mainCv || mainCv.dataset.init) return;
+  mainCv.dataset.init = '1';
+  const r = mainCv.parentElement.getBoundingClientRect();
+  const w = Math.round(r.width), h = Math.round(r.height);
+  mainCv.width = prevCv.width = w;
+  mainCv.height = prevCv.height = h;
+  mainCtx = mainCv.getContext('2d');
+  prevCtx = prevCv.getContext('2d');
+  mainCtx.lineCap = prevCtx.lineCap = 'round';
+  mainCtx.lineJoin = prevCtx.lineJoin = 'round';
+  // Fill white background so eraser works
+  mainCtx.fillStyle = '#fff';
+  mainCtx.fillRect(0, 0, w, h);
+  saveHistory();
+
+  // Tool buttons
+  document.querySelectorAll('#drawTools .dt').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#drawTools .dt').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      drawState.tool = btn.dataset.tool;
+      prevCv.style.cursor = drawState.tool === 'eraser' ? 'cell' : 'crosshair';
+    });
+  });
+
+  // Pointer events on preview canvas
+  prevCv.addEventListener('pointerdown', onDrawStart);
+  prevCv.addEventListener('pointermove', onDrawMove);
+  prevCv.addEventListener('pointerup', onDrawEnd);
+  prevCv.addEventListener('pointerleave', onDrawEnd);
+}
+
+function pos(e) {
+  const b = prevCv.getBoundingClientRect();
+  return { x: (e.clientX - b.left) * prevCv.width / b.width, y: (e.clientY - b.top) * prevCv.height / b.height };
+}
+
+function applyStyle(ctx, opts) {
+  ctx.strokeStyle = opts.eraser ? '#fff' : drawState.color;
+  ctx.fillStyle = drawState.color;
+  ctx.lineWidth = opts.eraser ? drawState.size * 4 : drawState.size;
+  ctx.setLineDash(opts.dash ? [8, 6] : []);
+}
+
+function onDrawStart(e) {
+  e.preventDefault();
+  const p = pos(e);
+  drawState.drawing = true;
+  drawState.startX = p.x;
+  drawState.startY = p.y;
+
+  if (drawState.tool === 'text') {
+    drawState.drawing = false;
+    const label = prompt('Enter label text:');
+    if (label) {
+      const fs = Math.max(14, drawState.size * 5);
+      mainCtx.font = fs + 'px Arial';
+      mainCtx.fillStyle = drawState.color;
+      mainCtx.fillText(label, p.x, p.y);
+      saveHistory();
+    }
+    return;
+  }
+
+  if (drawState.tool === 'pen' || drawState.tool === 'eraser') {
+    applyStyle(mainCtx, { eraser: drawState.tool === 'eraser' });
+    mainCtx.beginPath();
+    mainCtx.moveTo(p.x, p.y);
+  }
+}
+
+function onDrawMove(e) {
+  if (!drawState.drawing) return;
+  e.preventDefault();
+  const p = pos(e);
+  const t = drawState.tool;
+
+  if (t === 'pen' || t === 'eraser') {
+    mainCtx.lineTo(p.x, p.y);
+    mainCtx.stroke();
+    return;
+  }
+
+  // Shape preview
+  prevCtx.clearRect(0, 0, prevCv.width, prevCv.height);
+  applyStyle(prevCtx, { dash: t === 'dash' });
+  const sx = drawState.startX, sy = drawState.startY;
+
+  if (t === 'line' || t === 'dash') {
+    prevCtx.beginPath();
+    prevCtx.moveTo(sx, sy);
+    prevCtx.lineTo(p.x, p.y);
+    prevCtx.stroke();
+  } else if (t === 'arrow') {
+    drawArrow(prevCtx, sx, sy, p.x, p.y);
+  } else if (t === 'rect') {
+    prevCtx.beginPath();
+    prevCtx.strokeRect(sx, sy, p.x - sx, p.y - sy);
+  } else if (t === 'circle') {
+    const rx = Math.abs(p.x - sx) / 2, ry = Math.abs(p.y - sy) / 2;
+    const cx = sx + (p.x - sx) / 2, cy = sy + (p.y - sy) / 2;
+    prevCtx.beginPath();
+    prevCtx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
+    prevCtx.stroke();
+  }
+  prevCtx.setLineDash([]);
+}
+
+function onDrawEnd(e) {
+  if (!drawState.drawing) return;
+  drawState.drawing = false;
+  const t = drawState.tool;
+
+  if (t === 'pen' || t === 'eraser') {
+    mainCtx.closePath();
+    saveHistory();
+    return;
+  }
+
+  // Commit preview to main canvas
+  const p = pos(e);
+  applyStyle(mainCtx, { dash: t === 'dash' });
+  const sx = drawState.startX, sy = drawState.startY;
+
+  if (t === 'line' || t === 'dash') {
+    mainCtx.beginPath();
+    mainCtx.moveTo(sx, sy);
+    mainCtx.lineTo(p.x, p.y);
+    mainCtx.stroke();
+  } else if (t === 'arrow') {
+    drawArrow(mainCtx, sx, sy, p.x, p.y);
+  } else if (t === 'rect') {
+    mainCtx.beginPath();
+    mainCtx.strokeRect(sx, sy, p.x - sx, p.y - sy);
+  } else if (t === 'circle') {
+    const rx = Math.abs(p.x - sx) / 2, ry = Math.abs(p.y - sy) / 2;
+    const cx = sx + (p.x - sx) / 2, cy = sy + (p.y - sy) / 2;
+    mainCtx.beginPath();
+    mainCtx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
+    mainCtx.stroke();
+  }
+  mainCtx.setLineDash([]);
+  prevCtx.clearRect(0, 0, prevCv.width, prevCv.height);
+  saveHistory();
+}
+
+function drawArrow(ctx, x1, y1, x2, y2) {
+  const headLen = Math.max(12, drawState.size * 4);
+  const angle = Math.atan2(y2 - y1, x2 - x1);
+  ctx.beginPath();
+  ctx.moveTo(x1, y1);
+  ctx.lineTo(x2, y2);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(x2, y2);
+  ctx.lineTo(x2 - headLen * Math.cos(angle - Math.PI / 6), y2 - headLen * Math.sin(angle - Math.PI / 6));
+  ctx.moveTo(x2, y2);
+  ctx.lineTo(x2 - headLen * Math.cos(angle + Math.PI / 6), y2 - headLen * Math.sin(angle + Math.PI / 6));
+  ctx.stroke();
+}
+
+function saveHistory() {
+  if (!mainCv) return;
+  drawState.historyIdx++;
+  drawState.history = drawState.history.slice(0, drawState.historyIdx);
+  drawState.history.push(mainCv.toDataURL());
+  if (drawState.history.length > 30) { drawState.history.shift(); drawState.historyIdx--; }
+}
+
+function drawUndo() {
+  if (drawState.historyIdx <= 0 || !mainCv) return;
+  drawState.historyIdx--;
+  const img = new Image();
+  img.onload = () => { mainCtx.clearRect(0, 0, mainCv.width, mainCv.height); mainCtx.drawImage(img, 0, 0); };
+  img.src = drawState.history[drawState.historyIdx];
+}
+
+function clearDrawCanvas() {
+  if (!mainCv) return;
+  mainCtx.fillStyle = '#fff';
+  mainCtx.fillRect(0, 0, mainCv.width, mainCv.height);
+  prevCtx.clearRect(0, 0, prevCv.width, prevCv.height);
+  saveHistory();
+}
+
+function getDrawCanvasData() {
+  if (!mainCv) return null;
+  const px = mainCtx.getImageData(0, 0, mainCv.width, mainCv.height).data;
+  for (let i = 0; i < px.length; i += 4) { if (px[i] < 255 || px[i+1] < 255 || px[i+2] < 255) return mainCv.toDataURL('image/png'); }
+  return null;
+}
+
+function initSigPad(canvasId) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const wrap = canvas.parentElement;
+  let drawing = false;
+
+  function resize() {
+    const rect = wrap.getBoundingClientRect();
+    canvas.width = rect.width;
+    canvas.height = rect.height;
+    ctx.strokeStyle = '#1a3a0a';
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function getPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    const touch = e.touches ? e.touches[0] : e;
+    return { x: touch.clientX - rect.left, y: touch.clientY - rect.top };
+  }
+
+  function start(e) {
+    e.preventDefault();
+    drawing = true;
+    const p = getPos(e);
+    ctx.beginPath();
+    ctx.moveTo(p.x, p.y);
+  }
+
+  function move(e) {
+    if (!drawing) return;
+    e.preventDefault();
+    const p = getPos(e);
+    ctx.lineTo(p.x, p.y);
+    ctx.stroke();
+  }
+
+  function stop() { drawing = false; }
+
+  canvas.addEventListener('mousedown', start);
+  canvas.addEventListener('mousemove', move);
+  canvas.addEventListener('mouseup', stop);
+  canvas.addEventListener('mouseleave', stop);
+  canvas.addEventListener('touchstart', start, {passive:false});
+  canvas.addEventListener('touchmove', move, {passive:false});
+  canvas.addEventListener('touchend', stop);
+
+  sigPads[canvasId] = { canvas, ctx, resize };
+}
+
+function clearSig(idx) {
+  const pad = sigPads['sig_' + idx];
+  if (pad) { pad.ctx.clearRect(0, 0, pad.canvas.width, pad.canvas.height); }
+}
+
+function clearSigById(id) {
+  const pad = sigPads[id];
+  if (pad) { pad.ctx.clearRect(0, 0, pad.canvas.width, pad.canvas.height); }
+}
+
+function getSigDataURL(id) {
+  const pad = sigPads[id];
+  if (!pad) return '';
+  const ctx = pad.ctx;
+  const px = ctx.getImageData(0, 0, pad.canvas.width, pad.canvas.height).data;
+  for (let i = 3; i < px.length; i += 4) { if (px[i] > 0) return pad.canvas.toDataURL(); }
+  return '';
+}
+
+// ─── RENDER HAZARDS ───
+function renderHazards() {
+  const container = document.getElementById('hazardList');
+  HAZARDS.forEach((h, i) => {
+    const div = document.createElement('div');
+    div.className = 'haz-item';
+    div.id = 'haz_' + i;
+    div.innerHTML = `
+      <div class="haz-head" onclick="this.parentElement.classList.toggle('checked');this.querySelector('input').checked=this.parentElement.classList.contains('checked')">
+        <input type="checkbox" onclick="event.stopPropagation();this.parentElement.parentElement.classList.toggle('checked',this.checked)">
+        <span class="haz-name">${h.name}</span>
+      </div>
+      <div class="haz-body">
+        <div class="haz-cols">
+          <div><h4>Description of Hazards</h4><ul>${h.hazards.map(x=>'<li>'+x+'</li>').join('')}</ul></div>
+          <div><h4 class="ctrl">Control Measures — Check all being implemented</h4>
+            <div class="ctrl-list">${h.controls.map((x,ci)=>'<label class="ctrl-cb"><input type="checkbox" data-ctrl="'+i+'_'+ci+'"> '+x+'</label>').join('')}</div>
+          </div>
+        </div>
+        <div style="margin-top:10px;padding-top:10px;border-top:1px dashed var(--d200)">
+          <label style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--d500)">Site-Specific Hazards (optional)</label>
+          <textarea id="hazNote_${i}" placeholder="Note any additional hazards specific to today's job site..." style="width:100%;margin-top:4px;min-height:50px;font-size:12px;border:1px solid var(--d200);border-radius:6px;padding:8px;resize:vertical;box-sizing:border-box"></textarea>
+        </div>
+      </div>`;
+    container.appendChild(div);
+  });
+}
+
+// ─── ADD ROWS ───
+function addRescueRow() {
+  const container = document.getElementById('rescueRows');
+  const row = document.createElement('div');
+  row.className = 'rescue-row';
+  row.innerHTML = '<input type="text" placeholder="Location"><textarea placeholder="Rescue plan steps..."></textarea><input type="text" placeholder="Required gear">';
+  container.appendChild(row);
+}
+
+
+// ─── BUILD REPORT ───
+function getFN() {
+  const d = document.getElementById('jhaDate').value.replace(/-/g,'').slice(2);
+  const proj = getFieldVal('project').replace(/[^a-zA-Z0-9_-]/g,'').slice(0,30) || 'JHA';
+  return d + '_JHA_' + proj;
+}
+
+function buildReport() {
+  const d = {
+    project: getFieldVal('project'),
+    date: document.getElementById('jhaDate').value,
+    site: document.getElementById('site').value,
+    time: document.getElementById('jhaTime').value,
+    customer: getFieldVal('client'),
+    location: getFieldVal('location'),
+    siteContact: document.getElementById('siteContact').value,
+    sitePhone: document.getElementById('sitePhone').value,
+    pm: getFieldVal('pm'),
+    pmPhone: document.getElementById('pmPhone').value,
+    eapContact: document.getElementById('eapContact').value,
+    eapKit: document.getElementById('eapKit').value,
+    siteRadio: document.getElementById('siteRadio').value,
+    teamRadio: document.getElementById('teamRadio').value,
+    emsAccess: document.getElementById('emsAccess').value,
+    otherComm: document.getElementById('otherComm').value,
+    windDiscussed: document.getElementById('windDiscussed').checked ? 'Y' : 'N',
+    windNotes: document.getElementById('windNotes') ? document.getElementById('windNotes').value : '',
+    wowActive: document.getElementById('wowActive').value,
+    wowPolicy: document.getElementById('wowPolicy') ? document.getElementById('wowPolicy').checked : false,
+    waveHeight: document.getElementById('waveHeight').value,
+    standbyVessel: document.getElementById('standbyVessel').value,
+    waterTemp: document.getElementById('waterTemp').value,
+    waterRadio: document.getElementById('waterRadio').value,
+    waterRestrictions: document.getElementById('waterRestrictions').value,
+    workDesc: document.getElementById('workDesc').value,
+    ropeMethods: document.getElementById('ropeMethods').value,
+    sdsVerified: document.getElementById('sdsVerified').value,
+    anchors: document.getElementById('anchors').value,
+    lotoNeeded: document.getElementById('lotoNeeded').value,
+    lotoPermit: document.getElementById('lotoPermit').value,
+    lotoSupervisor: document.getElementById('lotoSupervisor').value,
+    csPermitReq: document.getElementById('csPermitReq').value,
+    csPermit: document.getElementById('csPermit').value,
+    toolMgmt: document.getElementById('toolMgmt').value,
+    powerAsc: document.getElementById('powerAsc').value,
+    paPreUse: document.getElementById('paPreUse') ? document.getElementById('paPreUse').checked : false,
+    paCertified: document.getElementById('paCertified') ? document.getElementById('paCertified').checked : false,
+    accessZone: document.getElementById('accessZone').value,
+    hazardZone: document.getElementById('hazardZone').value,
+    emergRadio: document.getElementById('emergRadio').value,
+    rescueNotes: document.getElementById('rescueNotes').value,
+    riggingPlan: document.getElementById('riggingPlan').value,
+    lessonsLearned: document.getElementById('lessonsLearned').value,
+    dateClosed: document.getElementById('dateClosed').value,
+  };
+
+  // Collect team
+  d.team = [];
+  for (let i = 0; i < 8; i++) {
+    const name = document.getElementById('team_'+i+'_name').value;
+    const phone = document.getElementById('team_'+i+'_phone').value;
+    const sig = getSigDataURL('sig_'+i);
+    const roles = ['Prepared By','RA Supervisor','Technician','Technician','Technician','Technician','Technician','Technician'];
+    if (name) d.team.push({ role: roles[i], name, phone, sig });
+  }
+
+  // Collect equipment
+  d.equipment = [];
+  const eqItems = [
+    {id:'eq_rope', name:'Rope', extra:()=>'Qty: '+(document.getElementById('eq_rope_qty').value||'-')+', Length: '+(document.getElementById('eq_rope_len').value||'-')},
+    {id:'eq_edge', name:'Edge Protection', extra:()=>document.getElementById('eq_edge_val').value},
+    {id:'eq_slings', name:'Rigging Straps/Slings', extra:()=>document.getElementById('eq_slings_val').value},
+    {id:'eq_conn', name:'Connectors', extra:()=>document.getElementById('eq_conn_val').value},
+    {id:'eq_pulleys', name:'Pulleys', extra:()=>document.getElementById('eq_pulleys_val').value},
+    {id:'eq_taglines', name:'Tag/Lowering Lines', extra:()=>''},
+  ];
+  eqItems.forEach(eq => {
+    if (document.getElementById(eq.id).checked) {
+      d.equipment.push({ name: eq.name, detail: eq.extra() });
+    }
+  });
+  d.addlEquip = document.getElementById('addlEquip').value;
+  d.addlPPE = document.getElementById('addlPPE').value;
+
+  // Collect checked hazards
+  d.hazards = [];
+  HAZARDS.forEach((h, i) => {
+    const el = document.getElementById('haz_' + i);
+    if (el && el.classList.contains('checked')) {
+      const checkedCtrls = [];
+      el.querySelectorAll('.ctrl-cb input[type=checkbox]').forEach((cb, ci) => {
+        if (cb.checked) checkedCtrls.push(ci);
+      });
+      const note = document.getElementById('hazNote_' + i);
+      d.hazards.push({
+        name: h.name,
+        hazards: h.hazards,
+        controls: h.controls,
+        checkedControls: checkedCtrls,
+        siteNote: note ? note.value.trim() : ''
+      });
+    }
+  });
+
+  // Custom hazards
+  ['customHaz1','customHaz2'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.classList.contains('checked')) {
+      const nameInput = el.querySelector('.haz-head input[type=text]');
+      const tas = el.querySelectorAll('.haz-body textarea');
+      if (nameInput.value) {
+        d.hazards.push({ name: nameInput.value, hazards: [tas[0]?.value||''], controls: [tas[1]?.value||''] });
+      }
+    }
+  });
+
+  // Rescue rows
+  d.rescues = [];
+  document.querySelectorAll('#rescueRows .rescue-row').forEach(row => {
+    const inputs = row.querySelectorAll('input,textarea');
+    if (inputs[0]?.value) d.rescues.push({ location: inputs[0].value, plan: inputs[1].value, gear: inputs[2].value });
+  });
+
+  d.superSig = getSigDataURL('sig_super');
+
+  const fn = getFN();
+  const now = new Date().toLocaleString('en-US', {dateStyle:'medium',timeStyle:'short'});
+  const ynBadge = v => v === 'Y' ? '<span style="color:#2d5a14;font-weight:700">✓ Yes</span>' : v === 'N' ? '<span style="color:#c0392b;font-weight:700">✗ No</span>' : '<span style="color:#888">—</span>';
+
+  // ─── GENERATE HTML REPORT ───
+  let h = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${fn}</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial,Helvetica,sans-serif;font-size:11pt;color:#1e1e1e;line-height:1.6;padding:0.5in;max-width:8.5in;margin:0 auto}
+@media print{body{padding:0.4in}  .page-break{page-break-before:always}}
+.hdr{background-color:#2d5a14;-webkit-print-color-adjust:exact;print-color-adjust:exact;color:#fff;padding:18px 22px;margin-bottom:0}
+.hdr h1{font-size:15pt;margin-bottom:4px}.hdr .ref{font-size:9pt;opacity:.8;margin-top:4px}
+.meta{border:1px solid #ccc;border-top:none;padding:10px 14px;margin-bottom:14px}
+.mi{padding:4px 0;font-size:10pt}
+.ml{font-size:8pt;font-weight:700;text-transform:uppercase;color:#888;display:inline}.mv{font-size:10pt;font-weight:600;display:inline;margin-left:6px}
+.sec{margin-top:14px;border:1px solid #ddd;page-break-inside:avoid}
+.sec-t{background-color:#f0f0f0;-webkit-print-color-adjust:exact;print-color-adjust:exact;padding:10px 14px;font-size:10pt;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:#2d5a14;border-bottom:1px solid #ddd}
+.sec-t.red{color:#c0392b;background-color:#fde8e5}.sec-t.amber{color:#e67e22;background-color:#fef5e7}
+.sec-c{padding:12px 14px}
+table.t{width:100%;border-collapse:collapse;font-size:9pt}
+table.t th{background-color:#f5f5f5;-webkit-print-color-adjust:exact;print-color-adjust:exact;font-size:8pt;font-weight:700;text-transform:uppercase;padding:6px 10px;text-align:left;border-bottom:2px solid #ddd;color:#666}
+table.t td{padding:6px 10px;border-bottom:1px solid #eee}
+.sig-img{max-height:40px;max-width:150px}
+.yn{font-weight:700}.yn.y{color:#2d5a14}.yn.n{color:#c0392b}
+.haz-sec{margin:6px 0;padding:8px 10px;background-color:#fef5e7;-webkit-print-color-adjust:exact;print-color-adjust:exact;border-left:3px solid #e67e22;page-break-inside:avoid}
+.haz-sec h4{font-size:9pt;font-weight:700;margin-bottom:4px}
+.haz-sec ul{margin:0;padding-left:16px;font-size:9pt}
+.haz-sec .ctrl{color:#2d5a14}
+.ft{text-align:center;margin-top:18px;padding:12px;font-size:8pt;color:#aaa;font-style:italic;border-top:1px solid #eee}
+.row2{margin:4px 0}
+.row2-item{display:inline-block;width:48%;vertical-align:top;margin-bottom:6px}
+.lbl{font-size:8pt;font-weight:700;text-transform:uppercase;color:#888;margin-bottom:2px}
+.val{font-size:10pt;margin-bottom:8px}
+.val.pre{white-space:pre-wrap}
+</style></head><body>`;
+
+  h += `<div class="hdr"><h1>Job Hazard Analysis (JHA) & Rope-Access Work Plan</h1><div class="ref">OMS_0010_JHA&WorkPlan &bull; Rev 6 &bull; ${d.date}</div></div>`;
+
+  // Meta - simple stacked layout, no grid
+  h += `<div class="meta">
+    <div class="mi"><span class="ml">Project:</span> <span class="mv">${d.project||'—'}</span> &nbsp;&nbsp; <span class="ml">Date:</span> <span class="mv">${d.date||'—'}</span> &nbsp;&nbsp; <span class="ml">Time:</span> <span class="mv">${d.time||'—'}</span></div>
+    <div class="mi"><span class="ml">Customer:</span> <span class="mv">${d.customer||'—'}</span> &nbsp;&nbsp; <span class="ml">Site:</span> <span class="mv">${d.site||'—'}</span></div>
+    <div class="mi"><span class="ml">Work Location:</span> <span class="mv">${d.location||'—'}</span></div>
+    <div class="mi"><span class="ml">Site Contact:</span> <span class="mv">${d.siteContact||'—'} ${d.sitePhone?'• '+d.sitePhone:''}</span> &nbsp;&nbsp; <span class="ml">ORAS PM:</span> <span class="mv">${d.pm||'—'} ${d.pmPhone?'• '+d.pmPhone:''}</span></div>
+    <div class="mi"><span class="ml">Generated:</span> <span class="mv">${now}</span></div>
+  </div>`;
+
+  // Emergency
+  h += `<div class="sec"><div class="sec-t red">Emergency Information</div><div class="sec-c">
+    <div class="row2"><div class="row2-item"><div class="lbl">EAP Contact</div><div class="val">${d.eapContact||'—'}</div></div><div class="row2-item"><div class="lbl">EAP Rescue Kit</div><div class="val">${d.eapKit||'—'}</div></div></div>
+    <div class="row2"><div class="row2-item"><div class="lbl">Site Radio</div><div class="val">${d.siteRadio||'—'}</div></div><div class="row2-item"><div class="lbl">Team Radio</div><div class="val">${d.teamRadio||'—'}</div></div></div>
+  <div class="lbl">Notes for Rescue and Access</div><div class="val pre">${d.emsAccess||'—'}</div>
+  <div class="lbl">Other Comms</div><div class="val">${ynBadge(d.otherComm)}</div></div></div>`;
+
+  // Wind
+  h += `<div class="sec"><div class="sec-t">Wind Assessment</div><div class="sec-c">
+    <div class="lbl">Weather & wind speeds discussed?</div><div class="val">${ynBadge(d.windDiscussed)}</div>
+    ${d.windNotes ? '<div class="lbl" style="margin-top:8px">Site Specific Notes</div><div class="val">'+d.windNotes+'</div>' : ''}</div></div>`;
+
+  // Water
+  if (d.wowActive === 'Y') {
+    h += `<div class="sec"><div class="sec-t">Working Over Water</div><div class="sec-c">
+      <div class="lbl">WOW Policy Reviewed</div><div class="val">${d.wowPolicy?'<span style="color:#2d5a14;font-weight:700">✓ Yes</span>':'<span style="color:#888">—</span>'}</div>
+      <div class="row2"><div class="row2-item"><div class="lbl">Wave Height</div><div class="val">${d.waveHeight||'—'}</div></div><div class="row2-item"><div class="lbl">Standby Vessel</div><div class="val">${d.standbyVessel||'—'}</div></div></div>
+      <div class="row2"><div class="row2-item"><div class="lbl">Water Temp</div><div class="val">${d.waterTemp||'—'}</div></div><div class="row2-item"><div class="lbl">Contact/Radio</div><div class="val">${d.waterRadio||'—'}</div></div></div>
+    ${d.waterRestrictions?'<div class="lbl">Restrictions</div><div class="val">'+d.waterRestrictions+'</div>':''}</div></div>`;
+  }
+
+  // Work scope
+  h += `<div class="sec"><div class="sec-t">Work Scope</div><div class="sec-c">
+    <div class="lbl">Description of Work</div><div class="val pre">${d.workDesc||'—'}</div>
+    <div class="lbl">Rope-Access Methods</div><div class="val pre">${d.ropeMethods||'—'}</div></div></div>`;
+
+  // Equipment
+  if (d.equipment.length || d.addlEquip || d.addlPPE) {
+    h += `<div class="sec"><div class="sec-t">Job/Task Equipment</div><div class="sec-c">`;
+    d.equipment.forEach(eq => {
+      h += `<div class="val">☑ <strong>${eq.name}</strong>${eq.detail?' — '+eq.detail:''}</div>`;
+    });
+    if (d.addlEquip) h += `<div class="lbl" style="margin-top:6px">Additional Equipment</div><div class="val">${d.addlEquip}</div>`;
+    if (d.addlPPE) h += `<div class="lbl">Additional PPE</div><div class="val">${d.addlPPE}</div>`;
+    h += `</div></div>`;
+  }
+
+  // SDS
+  h += `<div class="sec"><div class="sec-t amber">SDS — Safety Data Sheets</div><div class="sec-c">
+    <div class="lbl">All SDS available & discussed</div><div class="val">${ynBadge(d.sdsVerified)}</div></div></div>`;
+
+  // Anchors
+  if (d.anchors) h += `<div class="sec"><div class="sec-t">Anchors</div><div class="sec-c"><div class="val pre">${d.anchors}</div></div></div>`;
+
+  // LOTO
+  h += `<div class="sec"><div class="sec-t amber">LOTO</div><div class="sec-c">
+    <div class="lbl">LOTO Required</div><div class="val">${ynBadge(d.lotoNeeded)}</div>
+    ${d.lotoNeeded==='Y'?'<div class="row2"><div class="row2-item"><div class="lbl">Permit #</div><div class="val">'+d.lotoPermit+'</div></div><div class="row2-item"><div class="lbl">Supervisor</div><div class="val">'+d.lotoSupervisor+'</div></div></div>':''}</div></div>`;
+
+  // Confined space
+  h += `<div class="sec"><div class="sec-t amber">Confined Space</div><div class="sec-c">
+    <div class="lbl">Permit Required</div><div class="val">${ynBadge(d.csPermitReq)}</div>
+    ${d.csPermitReq==='Y'?'<div class="lbl">Permit #</div><div class="val">'+d.csPermit+'</div>':''}</div></div>`;
+
+  // Tool mgmt, power ascender, zones
+  if (d.toolMgmt) h += `<div class="sec"><div class="sec-t">Equipment/Tool Management</div><div class="sec-c"><div class="val pre">${d.toolMgmt}</div></div></div>`;
+  h += `<div class="sec"><div class="sec-t">Power Ascender</div><div class="sec-c"><div class="val">${ynBadge(d.powerAsc)}${d.powerAsc==='Y'?'<div style="margin-top:6px;font-size:10px">'+(d.paPreUse?'☑':'☐')+' Pre-Use Inspection completed &nbsp;&nbsp;'+(d.paCertified?'☑':'☐')+' Operator certification/training verified</div>':''}</div></div></div>`;
+  h += `<div class="sec"><div class="sec-t red">Work Zones - Rope Access</div><div class="sec-c">
+    <div class="lbl" style="margin-top:6px">Access Zone</div><div class="val pre">${d.accessZone||'—'}</div>
+    <div class="lbl" style="margin-top:6px">Hazard Zone</div><div class="val pre">${d.hazardZone||'—'}</div></div></div>`;
+
+  // Rescue
+  if (d.rescues.length) {
+    h += `<div class="sec"><div class="sec-t red">Rescue Planning</div><div class="sec-c">`;
+    if (d.emergRadio) h += `<div class="row2"><div class="row2-item"><div class="lbl">Emergency Radio</div><div class="val">${d.emergRadio}</div></div><div class="row2-item"><div class="lbl">Notes</div><div class="val">${d.rescueNotes||'—'}</div></div></div>`;
+    h += `<table class="t"><thead><tr><th>Location</th><th>Rescue Plan</th><th>Gear</th></tr></thead><tbody>`;
+    d.rescues.forEach(r => { h += `<tr><td>${r.location}</td><td>${r.plan}</td><td>${r.gear}</td></tr>`; });
+    h += `</tbody></table></div></div>`;
+  }
+
+  // Rigging
+  h += `<div class="sec"><div class="sec-t">Rigging Plan</div><div class="sec-c">`;
+  if (d.riggingPlan) h += `<div class="val pre">${d.riggingPlan}</div>`;
+  const drawImg = typeof getDrawCanvasData === 'function' ? getDrawCanvasData() : null;
+  if (drawImg) h += `<div style="margin-top:10px"><div class="lbl">Rigging Sketch</div><img src="${drawImg}" style="max-width:100%;border:1px solid #ddd;border-radius:4px;margin-top:6px"></div>`;
+  if (d.riggingPlan || drawImg) h += `</div></div>`;
+
+  // Hazards
+  if (d.hazards.length) {
+    h += `<div class="sec"><div class="sec-t amber">Hazard Conditions (${d.hazards.length} identified)</div><div class="sec-c">`;
+    d.hazards.forEach(hz => {
+      const ctrlHtml = hz.controls.map((x, ci) => {
+        const checked = hz.checkedControls && hz.checkedControls.includes(ci);
+        return '<li style="padding:2px 0">' + (checked ? '☑' : '☐') + ' ' + x + '</li>';
+      }).join('');
+      h += `<div class="haz-sec"><h4>☑ ${hz.name}</h4><div class="row2"><div><div class="lbl" style="color:#c0392b">Hazards</div><ul>${hz.hazards.map(x=>'<li>'+x+'</li>').join('')}</ul></div><div><div class="lbl ctrl" style="color:#2d5a14">Controls Implemented</div><ul style="list-style:none;padding:0">${ctrlHtml}</ul></div></div>${hz.siteNote ? '<div style="margin-top:8px;padding-top:6px;border-top:1px dashed #ddd"><div class="lbl">Site-Specific Hazards</div><div class="val pre">'+hz.siteNote+'</div></div>' : ''}</div>`;
+    });
+    h += `</div></div>`;
+  }
+
+  // Team Sign-In (placed after content so team reads full JHA first)
+  if (d.team.length) {
+    h += `<div class="sec"><div class="sec-t">Team Sign-In</div><div class="sec-c"><table class="t"><thead><tr><th>Role</th><th>Name</th><th>Phone</th><th>Signature</th></tr></thead><tbody>`;
+    d.team.forEach(t => {
+      h += `<tr><td>${t.role}</td><td><strong>${t.name}</strong></td><td>${t.phone||'—'}</td><td>${t.sig?'<img class="sig-img" src="'+t.sig+'">':'—'}</td></tr>`;
+    });
+    h += `</tbody></table></div></div>`;
+  }
+
+  // Lessons learned
+  if (d.lessonsLearned) h += `<div class="sec"><div class="sec-t">Lessons Learned</div><div class="sec-c"><div class="val pre">${d.lessonsLearned}</div></div></div>`;
+
+  // Close-out
+  h += `<div class="sec"><div class="sec-t">Close-Out</div><div class="sec-c">
+    <div class="row2"><div class="row2-item"><div class="lbl">Supervisor Signature</div><div class="val">${d.superSig?'<img class="sig-img" src="'+d.superSig+'">':'—'}</div></div><div class="row2-item"><div class="lbl">Date Closed</div><div class="val">${d.dateClosed||'—'}</div></div></div></div></div>`;
+
+  h += `<div class="ft">Optimum Rope Access Solutions — Confidential — ${fn} — ${now}</div>`;
+  h += `</body></html>`;
+
+  reportHTML = h;
+  return { html: h, filename: fn, data: d, now };
+}
+
+// ─── SUBMIT ───
+
+// --- MANDATORY FIELD VALIDATION ---
+function validateJHA() {
+  const missing = [];
+  const v = id => { const el = document.getElementById(id); return el ? (el.value || '').trim() : ''; };
+
+  // Project Info - All
+  const pWrap = document.getElementById('wrap_project');
+  if (pWrap && pWrap.classList.contains('oth-on')) { if (!v('oth_project')) missing.push('Project Name'); }
+  else { const s = document.getElementById('sel_project'); if (!s || !s.value) missing.push('Project Name'); }
+  
+  if (!v('jhaDate')) missing.push('Date');
+  if (!v('site')) missing.push('Site');
+  if (!v('jhaTime')) missing.push('Time');
+  
+  const cWrap = document.getElementById('wrap_client');
+  if (cWrap && cWrap.classList.contains('oth-on')) { if (!v('oth_client')) missing.push('Customer'); }
+  else { const s = document.getElementById('sel_client'); if (!s || !s.value) missing.push('Customer'); }
+  
+  const lWrap = document.getElementById('wrap_location');
+  if (lWrap && lWrap.classList.contains('oth-on')) { if (!v('oth_location')) missing.push('Work Location'); }
+  else { const s = document.getElementById('sel_location'); if (!s || !s.value) missing.push('Work Location'); }
+  
+  if (!v('siteContact')) missing.push('Site Contact');
+  if (!v('sitePhone')) missing.push('Site Contact Phone');
+  
+  const mWrap = document.getElementById('wrap_pm');
+  if (mWrap && mWrap.classList.contains('oth-on')) { if (!v('oth_pm')) missing.push('Project Manager'); }
+  else { const s = document.getElementById('sel_pm'); if (!s || !s.value) missing.push('Project Manager'); }
+  
+  if (!v('pmPhone')) missing.push('PM Phone');
+
+  // Emergency Info
+  if (!v('eapContact')) missing.push('EAP Contact');
+  if (!v('eapKit')) missing.push('EAP Rescue Kit Location');
+  if (!v('siteRadio')) missing.push('Site Radio Channel');
+  if (!v('teamRadio')) missing.push('Team Radio Channel');
+
+  // Work Scope - All
+  if (!v('workDesc')) missing.push('Work Description');
+  if (!v('ropeMethods')) missing.push('Rope Access Methods');
+
+  // LOTO
+  const loto = document.getElementById('lotoNeeded');
+  if (loto && !loto.value) missing.push('LOTO (Yes/No required)');
+
+  // Confined Space
+  const cs = document.getElementById('csPermitReq');
+  if (cs && !cs.value) missing.push('Confined Space (Permit question required)');
+
+  // Equip & Tool Management
+  if (!v('toolMgmt')) missing.push('Equipment/Tool Management');
+
+  // Rescue Planning
+  if (!v('emergRadio')) missing.push('Rescue Planning - Radio Channel');
+  let hasRescue = false;
+  document.querySelectorAll('#rescueRows .rescue-row:not(.hdr)').forEach(row => {
+    row.querySelectorAll('input, textarea').forEach(inp => { if ((inp.value||'').trim()) hasRescue = true; });
+  });
+  if (!hasRescue) missing.push('Rescue Planning - At least 1 Location / Plan entry');
+
+  // Hazard Conditions - min 3
+  const hazCount = document.querySelectorAll('.haz-item.checked').length;
+  if (hazCount < 3) missing.push('Hazard Conditions (minimum 3 required, currently ' + hazCount + ')');
+
+  // Team Signatures
+  if (!v('team_0_name')) missing.push('Team Sign-In (at least 1 member name)');
+  const sig0 = document.querySelector('#sig_0 canvas');
+  if (sig0) {
+    const px0 = sig0.getContext('2d').getImageData(0, 0, sig0.width, sig0.height).data;
+    let has0 = false;
+    for (let i = 3; i < px0.length; i += 4) { if (px0[i] > 0) { has0 = true; break; } }
+    if (!has0) missing.push('Team Sign-In (at least 1 signature)');
+  }
+
+  // Closeout Signatures
+  const sigS = document.querySelector('#sig_super canvas');
+  if (sigS) {
+    const pxS = sigS.getContext('2d').getImageData(0, 0, sigS.width, sigS.height).data;
+    let hasS = false;
+    for (let i = 3; i < pxS.length; i += 4) { if (pxS[i] > 0) { hasS = true; break; } }
+    if (!hasS) missing.push('Close-Out Supervisor Signature');
+  }
+
+  return missing;
+}
+
+function submitJHA() {
+  const missing = validateJHA();
+  if (missing.length > 0) { alert("Please complete the following required fields:\n\n" + missing.map(m=>"• "+m).join("\n")); return; }
+  const report = buildReport();
+
+  // Open report in new window for PDF save
+  const w = window.open('', '_blank');
+  if (w) {
+    w.document.write(reportHTML);
+    w.document.close();
+    w.onload = function() { w.print(); };
+  } else {
+    // Fallback: show preview overlay and print
+    document.getElementById('pb').innerHTML = reportHTML;
+    document.getElementById('po').classList.add('on');
+    document.body.style.overflow = 'hidden';
+    window.print();
+  }
+
+  // Show post-submit panel after brief delay
+  setTimeout(() => {
+    const ps = document.getElementById('postSubmit');
+    if (ps) ps.style.display = 'flex';
+  }, 500);
+}
+
+function sendJHAEmail() {
+  const proj = getFieldVal('project') || 'JHA';
+  const dt = document.getElementById('jhaDate').value || '';
+  const site = document.getElementById('site').value || '';
+  const loc = getFieldVal('location') || '';
+  const pm = getFieldVal('pm') || '';
+  const prepName = document.getElementById('team_0_name').value || '';
+  const prepEmail = document.getElementById('prepEmail').value || '';
+  const ccEmail = document.getElementById('ccEmail').value || '';
+
+  const subject = encodeURIComponent('JHA — ' + proj + ' — ' + dt + (site ? ' — ' + site : ''));
+  const lines = ['Please find the completed JHA attached for review.','','Project: '+proj,'Date: '+dt,'Site: '+site];
+  if (loc) lines.push('Location: '+loc);
+  if (pm) lines.push('Project Manager: '+pm);
+  lines.push('','Prepared by: '+prepName,'','---','Please attach the saved PDF to this email before sending.');
+  const body = encodeURIComponent(lines.join(String.fromCharCode(10)));
+
+  const to = ccEmail || '';
+  const cc = prepEmail || '';
+  window.location.href = 'mailto:' + to + '?cc=' + cc + '&subject=' + subject + '&body=' + body;
+}
+
+function closePostSubmit() {
+  const ps = document.getElementById('postSubmit');
+  if (ps) ps.style.display = 'none';
+}
+
+
+// ─── UI HELPERS ───
+function toast(msg, err) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = err ? 'toast error show' : 'toast show';
+  setTimeout(() => t.classList.remove('show'), 4000);
+}
+
+function closePrint() {
+  document.getElementById('po').classList.remove('on');
+  document.body.style.overflow = '';
+  document.title = 'Optimum — JHA & Work Plan';
+}
+
+function clearForm() {
+  if (!confirm('Clear all fields? This cannot be undone.')) return;
+  document.querySelectorAll('input[type=text],input[type=number],input[type=email],input[type=tel],textarea').forEach(el => el.value = '');
+  document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
+  document.querySelectorAll('.dd-wrap').forEach(el => el.classList.remove('oth-on'));
+  document.querySelectorAll('.oth-tog input[type=checkbox]').forEach(el => el.checked = false);
+  document.querySelectorAll('input[type=hidden]').forEach(el => el.value = '');
+  document.querySelectorAll('.yn-btns button').forEach(el => el.className = '');
+  document.querySelectorAll('.haz-item').forEach(el => { el.classList.remove('checked'); el.querySelectorAll('input[type=checkbox]').forEach(cb => cb.checked = false); });
+  document.querySelectorAll('[id^="hazNote_"]').forEach(ta => ta.value = '');
+  if (document.getElementById('paPreUse')) document.getElementById('paPreUse').checked = false;
+  if (document.getElementById('paCertified')) document.getElementById('paCertified').checked = false;
+  document.querySelectorAll('.equip-item').forEach(el => { el.classList.remove('checked'); el.querySelector('input[type=checkbox]').checked = false; });
+  document.querySelectorAll('#lotoDetail,#csPermitField,#paDetail,#wowDetail').forEach(el => el.style.display = 'none');
+  if (document.getElementById('windDiscussed')) document.getElementById('windDiscussed').checked = false;
+  if (document.getElementById('windNotes')) document.getElementById('windNotes').value = '';
+  if (document.getElementById('wowPolicy')) document.getElementById('wowPolicy').checked = false;
+  document.getElementById('jhaDate').valueAsDate = new Date();
+  const now = new Date();
+  document.getElementById('jhaTime').value = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+  // Clear signatures
+  for (let i = 0; i < 8; i++) clearSig(i);
+  clearSigById('sig_super');
+  reportHTML = '';
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePrint(); });
+init();
+</script>
+</body>
+</html>
