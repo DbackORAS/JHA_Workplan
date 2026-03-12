@@ -6,6 +6,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#2d5a14">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='80' fill='%232d5a14'/><text x='256' y='340' font-family='Arial' font-size='240' font-weight='bold' fill='white' text-anchor='middle'>JHA</text></svg>">
 <title>Optimum — JHA & Work Plan</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -1682,6 +1684,43 @@ function clearForm() {
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closePrint(); });
 init();
+
+// --- PWA: Service Worker Registration ---
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').then(reg => {
+    console.log('SW registered, scope:', reg.scope);
+    // Check for updates
+    reg.addEventListener('updatefound', () => {
+      const nw = reg.installing;
+      nw.addEventListener('statechange', () => {
+        if (nw.state === 'activated') toast('App updated — you have the latest version');
+      });
+    });
+  }).catch(err => console.warn('SW registration failed:', err));
+
+  // Listen for queue retry messages from SW
+  navigator.serviceWorker.addEventListener('message', event => {
+    if (event.data && event.data.type === 'queue-retried') {
+      toast('Queued JHA submissions sent to SharePoint');
+    }
+  });
+
+  // When back online, trigger retry
+  window.addEventListener('online', () => {
+    toast('Back online — syncing...');
+    if (navigator.serviceWorker.controller) {
+      navigator.serviceWorker.controller.postMessage('retry-queue');
+    }
+    // Also request background sync if supported
+    navigator.serviceWorker.ready.then(reg => {
+      if (reg.sync) reg.sync.register('retry-webhooks');
+    });
+  });
+
+  window.addEventListener('offline', () => {
+    toast('Offline — JHAs will be saved locally and synced when signal returns', true);
+  });
+}
 </script>
 </body>
 </html>
