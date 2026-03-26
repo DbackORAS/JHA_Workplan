@@ -1591,6 +1591,7 @@ async function submitJHA() {
 
     const pdfBase64 = await blobToBase64(lastPdfBlob);
     await queueReport(report, pdfBase64);
+    clearDraft();
 
     toast('\u2705 JHA ready \u2014 tap Save PDF or Share to download');
   } catch(err) {
@@ -1771,10 +1772,208 @@ function clearForm() {
   clearSigById('sig_super');
   reportHTML = '';
   lastPdfBlob = null;
+  clearDraft();
+}
+
+// ─── AUTO-SAVE ───
+const DRAFT_KEY = 'jha_draft';
+let autoSaveTimer = null;
+
+function autoSave() {
+  clearTimeout(autoSaveTimer);
+  autoSaveTimer = setTimeout(() => {
+    try {
+      const state = {};
+      // Text inputs and textareas
+      document.querySelectorAll('input[type=text], input[type=email], input[type=time], input[type=date], textarea').forEach(el => {
+        if (el.id) state[el.id] = el.value;
+      });
+      // Hidden fields (yes/no toggles)
+      document.querySelectorAll('input[type=hidden]').forEach(el => {
+        if (el.id) state[el.id] = el.value;
+      });
+      // Checkboxes
+      document.querySelectorAll('input[type=checkbox]').forEach(el => {
+        if (el.id) state['cb_' + el.id] = el.checked;
+      });
+      // Haz-item checked state
+      const hazChecked = [];
+      document.querySelectorAll('.haz-item').forEach((el, i) => {
+        hazChecked.push(el.classList.contains('checked'));
+      });
+      state['_hazChecked'] = hazChecked;
+      // Equip checked state
+      const equipChecked = [];
+      document.querySelectorAll('.equip-item').forEach((el, i) => {
+        equipChecked.push(el.classList.contains('checked'));
+      });
+      state['_equipChecked'] = equipChecked;
+      // Rescue rows
+      const rescueRows = [];
+      document.querySelectorAll('#rescueRows .rescue-row').forEach(row => {
+        const inputs = row.querySelectorAll('input, textarea');
+        rescueRows.push(Array.from(inputs).map(i => i.value));
+      });
+      state['_rescueRows'] = rescueRows;
+      // Rigging canvas
+      const cv = document.getElementById('mainCanvas');
+      if (cv) {
+        try { state['_canvas'] = cv.toDataURL(); } catch(e) {}
+      }
+      // Signatures
+      for (let i = 0; i < 8; i++) {
+        const cv = document.getElementById('sig_' + i);
+        if (cv) try { state['_sig_' + i] = cv.toDataURL(); } catch(e) {}
+      }
+      const supCv = document.getElementById('sig_super');
+      if (supCv) try { state['_sig_super'] = supCv.toDataURL(); } catch(e) {}
+
+      localStorage.setItem(DRAFT_KEY, JSON.stringify(state));
+    } catch(e) {
+      console.warn('Auto-save failed:', e);
+    }
+  }, 2000);
+}
+
+function restoreDraft() {
+  try {
+    const saved = localStorage.getItem(DRAFT_KEY);
+    if (!saved) return;
+    const state = JSON.parse(saved);
+    // Text inputs and textareas
+    document.querySelectorAll('input[type=text], input[type=email], input[type=time], input[type=date], textarea').forEach(el => {
+      if (el.id && state[el.id] !== undefined) el.value = state[el.id];
+    });
+    // Hidden fields
+    document.querySelectorAll('input[type=hidden]').forEach(el => {
+      if (el.id && state[el.id] !== undefined) el.value = state[el.id];
+    });
+    // Restore yes/no button visual states
+    document.querySelectorAll('.yn-btns').forEach(group => {
+      const hidden = group.querySelector('input[type=hidden]');
+      if (!hidden || !hidden.value) return;
+      const val = hidden.value;
+      group.querySelectorAll('button').forEach(btn => {
+        btn.className = '';
+        if ((val === 'Y' && btn.textContent.trim() === 'Yes') ||
+            (val === 'N' && btn.textContent.trim() === 'No')) {
+          btn.className = val === 'Y' ? 'sel-y' : 'sel-n';
+        }
+      });
+    });
+    // Checkboxes
+    document.querySelectorAll('input[type=checkbox]').forEach(el => {
+      if (el.id && state['cb_' + el.id] !== undefined) {
+        el.checked = state['cb_' + el.id];
+      }
+    });
+    // Haz-item checked state
+    if (state['_hazChecked']) {
+      document.querySelectorAll('.haz-item').forEach((el, i) => {
+        if (state['_hazChecked'][i]) {
+          el.classList.add('checked');
+          const cb = el.querySelector('input[type=checkbox]');
+          if (cb) cb.checked = true;
+        }
+      });
+    }
+    // Equip checked state
+    if (state['_equipChecked']) {
+      document.querySelectorAll('.equip-item').forEach((el, i) => {
+        if (state['_equipChecked'][i]) {
+          el.classList.add('checked');
+          const cb = el.querySelector('input[type=checkbox]');
+          if (cb) cb.checked = true;
+        }
+      });
+    }
+    // Rescue rows
+    if (state['_rescueRows'] && state['_rescueRows'].length > 0) {
+      state['_rescueRows'].forEach((rowData, i) => {
+        const rows = document.querySelectorAll('#rescueRows .rescue-row');
+        if (i >= rows.length) {
+          const addBtn = document.querySelector('[onclick="addRescueRow()"]');
+          if (addBtn) addBtn.click();
+        }
+        const rows2 = document.querySelectorAll('#rescueRows .rescue-row');
+        if (rows2[i]) {
+          const inputs = rows2[i].querySelectorAll('input, textarea');
+          rowData.forEach((val, j) => { if (inputs[j]) inputs[j].value = val; });
+        }
+      });
+    }
+    // Rigging canvas
+    if (state['_canvas']) {
+      const cv = document.getElementById('mainCanvas');
+      if (cv) {
+        const img = new Image();
+        img.onload = () => {
+          const ctx = cv.getContext('2d');
+          ctx.clearRect(0, 0, cv.width, cv.height);
+          ctx.drawImage(img, 0, 0);
+        };
+        img.src = state['_canvas'];
+      }
+    }
+    // Signatures
+    for (let i = 0; i < 8; i++) {
+      if (state['_sig_' + i]) {
+        const cv = document.getElementById('sig_' + i);
+        if (cv) {
+          const img = new Image();
+          img.onload = () => { cv.getContext('2d').drawImage(img, 0, 0); };
+          img.src = state['_sig_' + i];
+        }
+      }
+    }
+    if (state['_sig_super']) {
+      const cv = document.getElementById('sig_super');
+      if (cv) {
+        const img = new Image();
+        img.onload = () => { cv.getContext('2d').drawImage(img, 0, 0); };
+        img.src = state['_sig_super'];
+      }
+    }
+    // Trigger visibility of conditional sections
+    const paVal = document.getElementById('powerAsc_val');
+    if (paVal && paVal.value) {
+      const detail = document.getElementById('paDetail');
+      if (detail) detail.style.display = paVal.value === 'Y' ? 'block' : 'none';
+    }
+    const lotoVal = document.getElementById('loto_val');
+    if (lotoVal && lotoVal.value) {
+      const detail = document.getElementById('lotoDetail');
+      if (detail) detail.style.display = lotoVal.value === 'Y' ? 'block' : 'none';
+    }
+    const csVal = document.getElementById('confSpace_val');
+    if (csVal && csVal.value) {
+      const detail = document.getElementById('csPermitField');
+      if (detail) detail.style.display = csVal.value === 'Y' ? 'block' : 'none';
+    }
+    const wowVal = document.getElementById('wow_val');
+    if (wowVal && wowVal.value) {
+      const detail = document.getElementById('wowDetail');
+      if (detail) detail.style.display = wowVal.value === 'Y' ? 'block' : 'none';
+    }
+  } catch(e) {
+    console.warn('Draft restore failed:', e);
+  }
+}
+
+function clearDraft() {
+  localStorage.removeItem(DRAFT_KEY);
+}
+
+// Attach auto-save to all inputs
+function attachAutoSave() {
+  document.addEventListener('input', autoSave);
+  document.addEventListener('change', autoSave);
 }
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closePrint(); });
 init();
+attachAutoSave();
+setTimeout(restoreDraft, 500);
 
 // --- PWA: Service Worker Registration ---
 if ('serviceWorker' in navigator) {
